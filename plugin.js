@@ -563,8 +563,8 @@ var Chart = Backbone.View.extend({
 	                x: -20 //center
 	            },
 	            credits: {
-		            text: 'IT4biz Chart plugin',
-		            href: 'http://www.it4biz.com.br'
+		            text: 'Saiku Chart Plus plugin',
+		            href: 'http://it4biz.github.com/SaikuChartPlus'
 		        },
 	            subtitle: {
 	                text: '',
@@ -618,8 +618,8 @@ var Chart = Backbone.View.extend({
 	                width: $(this.workspace.el).find('.workspace_results').width() - 40	
 	            },
 	            credits: {
-		            text: 'IT4biz Chart plugin',
-		            href: 'http://www.it4biz.com.br'
+		            text: 'Saiku Chart Plus plugin',
+		            href: 'http://it4biz.github.com/SaikuChartPlus'
 		        },
 	            title: {
 	                text: '',
@@ -672,8 +672,8 @@ var Chart = Backbone.View.extend({
 	                width: $(this.workspace.el).find('.workspace_results').width() - 40	
 	            },
 	            credits: {
-		            text: 'IT4biz Chart plugin',
-		            href: 'http://www.it4biz.com.br'
+		            text: 'Saiku Chart Plus plugin',
+		            href: 'http://it4biz.github.com/SaikuChartPlus'
 		        },
 	            title: {
 	                text: '',
@@ -731,8 +731,8 @@ var Chart = Backbone.View.extend({
 	                width: $(this.workspace.el).find('.workspace_results').width() - 40	
 	            },
 	            credits: {
-		            text: 'IT4biz Chart plugin',
-		            href: 'http://www.it4biz.com.br'
+		            text: 'Saiku Chart Plus plugin',
+		            href: 'http://it4biz.github.com/SaikuChartPlus'
 		        },
 	            title: {
 	                text: '',
@@ -784,8 +784,8 @@ var Chart = Backbone.View.extend({
 	                width: $(this.workspace.el).find('.workspace_results').width() - 40	
 	            },
 	            credits: {
-		            text: 'IT4biz Chart plugin',
-		            href: 'http://www.it4biz.com.br'
+		            text: 'Saiku Chart Plus plugin',
+		            href: 'http://it4biz.github.com/SaikuChartPlus'
 		        },
 	            title: {
 	                text: ''
