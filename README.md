@@ -16,7 +16,7 @@ To install:
 For developer or advanced instalation
 ------------------
 
-1- Edit the file saiku/ui/index.html, insert the code below:
+1) Edit the file saiku/ui/index.html, insert the code below:
 `````javascript
 <!--Load the Google AJAX API-->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -24,6 +24,9 @@ For developer or advanced instalation
 	google.load('visualization', '1.0', {'packages':['geochart']});
 </script>
 `````
+2) Make a download of project and replace all the files on saiku/ui/js/saiku/plugins/Chart
+
+Just this!
 
 License
 ------------------
