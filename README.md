@@ -14,6 +14,7 @@ To install:
 4) Click on New Saiku Charts Plus to create new analysis
 
 For developer or advanced instalation
+------------------
 
 1- Edit the file saiku/ui/index.html, insert the code below:
 `````javascript
