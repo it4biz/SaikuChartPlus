@@ -17,9 +17,9 @@ For developer or advanced instalation
 
 1- Edit the file saiku/ui/index.html, insert the code below:
 `````javascript
-    <!--Load the Google AJAX API-->
-  	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-		<script type="text/javascript"> 
-		  google.load('visualization', '1.0', {'packages':['geochart']});
-		</script>
+<!--Load the Google AJAX API-->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript"> 
+	google.load('visualization', '1.0', {'packages':['geochart']});
+</script>
 `````
