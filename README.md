@@ -26,8 +26,11 @@ For developer or advanced instalation
 
 Just this!
 
-License
+Licenses
 ------------------
+
+Before you put this project in your production environment, please visit http://www.highcharts.com/ to learn more about Highchart project.
+
 Saiku Chart Plus are free software. The UI, contained in this repository,
 is available under the terms of the Apache License Version 2. A copy is attached for your convenience.
 
