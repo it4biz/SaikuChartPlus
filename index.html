@@ -21,7 +21,7 @@
       <div class="inner">
         <h1>Saiku Chart Plus</h1>
         <h2>SaikuChartPlus</h2>
-        <a href="https://github.com/it4biz/SaikuChartPlus" class="button"><small>View project on</small>GitHub</a>
+        <a href="https://github.com/it4biz/SaikuChartPlus" target="no_blank" class="button"><small>View project on</small>GitHub</a>
       </div>
     </header>
 
@@ -37,13 +37,6 @@ What is Saiku Chart Plus? <BR><BR>
 It is an open source project that helps BI users to create other types of charts and maps.<BR><BR>
 
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
 <h3>How to install</h3>
 
 <p><BR><BR>
@@ -56,6 +49,20 @@ $ git checkout gh-pages
 
 4) Click on New Saiku Charts Plus to create new analysis<BR><BR>
 
+<h3>For developer or advanced instalation</h3>
+
+1) Edit the file saiku/ui/index.html, insert the code below:
+<code>
+<!--Load the Google AJAX API-->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript"> 
+    google.load('visualization', '1.0', {'packages':['geochart']});
+</script>
+<code>
+
+2) Make a download of project and replace all the files on saiku/ui/js/saiku/plugins/Chart
+
+Just this!
 
 <h3>Highchart Project</h3>
 
