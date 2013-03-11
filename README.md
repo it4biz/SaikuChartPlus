@@ -29,7 +29,9 @@ For developer or advanced instalation
 2) Download the project and replace all the files on saiku/ui/js/saiku/plugins/Chart That's it!
 
 Licenses
-Before you put this project in your production environment, please visit http://www.highcharts.com/ to learn more about the Highchart project, and https://developers.google.com/maps/terms to learn more about the Google GeoChart project. Saiku Chart Plus is a free and open source software. The UI, contained in this repository, is available under the terms of the Apache License Version 2. A copy is attached for your convenience.
+Before you put this project in your production environment, please visit http://www.highcharts.com/ to learn more about the Highchart project, and https://developers.google.com/maps/terms to learn more about the Google GeoChart project.
+
+Saiku Chart Plus is a free and open source software. The UI, contained in this repository, is available under the terms of the Apache License Version 2. A copy is attached for your convenience.
 
 Support or Contact
 Having trouble with this project? Feel free to send us an e-mail at info@it4biz.com.br.
