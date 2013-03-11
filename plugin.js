@@ -337,7 +337,7 @@ var Chart = Backbone.View.extend({
             $('<a href="#chart" class="chart button disabled_toolbar i18n" title="Toggle Chart"></a>')
             .css({  'background-image': "url('js/saiku/plugins/Chart/chart.png')",
                     'background-repeat':'no-repeat',
-                    'background-position':'50% 50%'
+                    'background-position':'20% 40%'
                 });
 
         var $chart_li = $('<li class="seperator"></li>').append($chart_button);
