@@ -5,7 +5,7 @@ SaikuChartPlus is an open source plug-in of Saiku 2.4 to help create other types
 
 To install:
 
-1) Download <a href="#">saikuchartsplus-plugin-2.4-RC1.zip</a>
+1) Download <a href="http://code.google.com/p/saikuchartplus/downloads/list">saikuchartsplus-plugin-2.4-RC1.zip</a>
 
 2) Copy the folder saikuchartsplus to /pentaho-solutions/system
 
