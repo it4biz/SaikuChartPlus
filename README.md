@@ -23,3 +23,10 @@ For developer or advanced instalation
 	google.load('visualization', '1.0', {'packages':['geochart']});
 </script>
 `````
+
+License
+------------------
+Saiku Chart Plus are free software. The UI, contained in this repository,
+is available under the terms of the Apache License Version 2. A copy is attached for your convenience.
+
+..
