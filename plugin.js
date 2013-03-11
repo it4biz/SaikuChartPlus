@@ -17,6 +17,12 @@
 /**
  * Renders a chart for each workspace
  */
+ 
+ /*  
+ *   Code adapted by IT4biz - Copyright 2013.
+ */
+ 
+ 
 var Chart = Backbone.View.extend({
     initialize: function(args) {
         this.workspace = args.workspace;
