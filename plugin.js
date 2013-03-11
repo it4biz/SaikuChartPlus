@@ -483,9 +483,7 @@ var Chart = Backbone.View.extend({
 	                name: this.data.metadata[0].colName,
 	                data: series                
             	}];	        
-        }else{ 
-        	
-	   	}       
+        }     
         //end serialization of data
 
         //start draw graphics
@@ -809,7 +807,6 @@ var Chart = Backbone.View.extend({
 		}
 		else if(options.type=='map')
 		{
-			
 			var series=[];			
 	        //nome das colunas
 	        var column=[];
@@ -950,6 +947,8 @@ function loadJS(file){
 	newScript.src = file;
 	headID.appendChild(newScript);
 }
+
+
 /**
  * Loads CCC and initializes chart plugin
  */
@@ -960,16 +959,13 @@ function loadJS(file){
 	loadJS('js/saiku/plugins/Chart/bootstrap/js/bootstrap.min.js');
 	loadJS('js/saiku/plugins/Chart/highcharts/highcharts.js');
 	loadJS('js/saiku/plugins/Chart/highcharts/exporting.js');
-	loadJS('https://www.google.com/jsapi');
-	loadJS('js/saiku/plugins/Chart/google/load.js');
-    
+		
     // Initialize CCC
     $.ajax({
         url: "js/saiku/plugins/Chart/ccc.js",
         dataType: "script",
         cache: true,
-        success: function() {
-        	  		
+        success: function() {        	  		
 
             var initPlugin = function(session) {
                 function new_workspace(args) {
