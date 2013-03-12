@@ -1,5 +1,5 @@
 /*  
- *   Copyright 2012 OSBI Ltd
+ *   Copyright 2013 IT4biz IT Solutions Ltda
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -17,18 +17,12 @@
 /**
  * Renders a chart for each workspace
  */
- 
- /*  
- *   Code adapted by IT4biz - Copyright 2013.
- */
- 
- 
-var Chart = Backbone.View.extend({
+var ChartPlus = Backbone.View.extend({
     initialize: function(args) {
         this.workspace = args.workspace;
         
         // Create a unique ID for use as the CSS selector
-        this.id = _.uniqueId("chart_");
+        this.id = _.uniqueId("chartPlus_");
         $(this.el).attr({ id: this.id });
         
         // Bind table rendering to query result event
@@ -38,7 +32,7 @@ var Chart = Backbone.View.extend({
         
         // Add chart button
         this.add_button();
-        this.workspace.toolbar.chart = this.show;
+        this.workspace.toolbar.chartPlus = this.show;
         
         // Listen to adjust event and rerender chart
         this.workspace.bind('workspace:adjust', this.render);
@@ -49,27 +43,27 @@ var Chart = Backbone.View.extend({
 						"<div class='btn-group'>"+
 							"<button data-toggle='dropdown' class='btn dropdown-toggle'>Bar <span class='caret'></span></button>"+
 							"<ul class='dropdown-menu'>"+
-								"<li><a href='#bar'>bar</a></li>"+
-								"<li><a href='#stackedBar'>stacked bar</a></li>"+
-								"<li><a href='#column'>column bar</a></li>"+								
+								"<li><a href='#barPlus'>bar</a></li>"+
+								"<li><a href='#stackedBarPlus'>stacked bar</a></li>"+
+								"<li><a href='#columnPlus'>column bar</a></li>"+								
 							"</ul>"+
 						"</div><!-- /btn-group -->"+
 						"<div class='btn-group'>"+
 							"<button data-toggle='dropdown' class='btn dropdown-toggle'>Line <span class='caret'></span></button>"+
 							"<ul class='dropdown-menu'>"+
-								"<li><a href='#line'>line</a></li>"+								
+								"<li><a href='#linePlus'>line</a></li>"+								
 							"</ul>"+
 						"</div><!-- /btn-group -->"+
 						"<div class='btn-group'>"+
 							"<button data-toggle='dropdown' class='btn dropdown-toggle'>Pie <span class='caret'></span></button>"+
 							"<ul class='dropdown-menu'>"+
-								"<li><a href='#pie'>pie</a></li>"+								
+								"<li><a href='#piePlus'>pie</a></li>"+								
 							"</ul>"+
 						"</div><!-- /btn-group -->"+
 						"<div class='btn-group'>"+
 							"<button data-toggle='dropdown' class='btn dropdown-toggle'>Geo Map <span class='caret'></span></button>"+
 							"<ul class='dropdown-menu'>"+
-								"<li><a href='#map'>world map</a></li>"+
+								"<li><a href='#mapPlus'>world map</a></li>"+
 								/*"<li>"+
 										"<li class='dropdown-submenu'>"+
 											"<a href='#' tabindex='-1'>country map</a>"+
@@ -339,11 +333,12 @@ var Chart = Backbone.View.extend({
     },
     
     add_button: function() {
+
         var $chart_button = 
-            $('<a href="#chart" class="chart button disabled_toolbar i18n" title="Toggle Chart"></a>')
-            .css({  'background-image': "url('js/saiku/plugins/Chart/chart.png')",
+            $('<a href="#chartPlus" class="chartPlus button disabled_toolbar i18n" title="Saiku Chart Plus"></a>')
+            .css({  'background-image': "url('js/saiku/plugins/ChartPlus/chart.png')",
                     'background-repeat':'no-repeat',
-                    'background-position':'20% 40%'
+                    'background-position':'20% 50%'
                 });
 
         var $chart_li = $('<li class="seperator"></li>').append($chart_button);
@@ -370,56 +365,56 @@ var Chart = Backbone.View.extend({
         return false;
     },
     
-    bar: function() {
+    barPlus: function() {
         this.options.stacked = false;
         this.options.type = "bar";
         this.render();
     },
     
-    stackedBar: function() {
+    stackedBarPlus: function() {
         this.options.stacked = true;
         this.options.type = "stackedBar";
         this.render();
     },
 
-    column: function() {
+    columnPlus: function() {
         this.options.stacked = true;
         this.options.type = "column";
         this.render();
     },
 
-    stackedColumn: function() {
+    stackedColumnPlus: function() {
         this.options.stacked = true;
         this.options.type = "stackedColumn";
         this.render();
     },
 
-    line: function() {
+    linePlus: function() {
         this.options.stacked = false;
         this.options.type = "line";
         this.render();
     },
     
-    pie: function() {
+    piePlus: function() {
         this.options.stacked = false;
         this.options.type = "pie";
         this.render();
     },
 
-    map: function() {
+    mapPlus: function() {
         this.options.stacked = false;
         this.options.type = "map";
         this.render();
     },
 
-    US: function() {
+    USPlus: function() {
         this.options.stacked = false;
         this.options.type = "US";
         this.render();
     },    
 
    	render: function() {
-        if (! $(this.workspace.toolbar.el).find('.chart').hasClass('on')) {
+        if (! $(this.workspace.toolbar.el).find('.chartPlus').hasClass('on')) {
             return;
         }
         
@@ -509,8 +504,8 @@ var Chart = Backbone.View.extend({
 	                x: -20 //center
 	            },
 	            credits: {
-		            text: 'IT4biz Chart plugin',
-		            href: 'http://www.it4biz.com.br'
+		            text: 'Saiku Chart Plus Plugin by IT4biz',
+              		href: 'http://it4biz.github.com/SaikuChartPlus'
 		        },
 	            subtitle: {
 	                text: '',
@@ -563,8 +558,8 @@ var Chart = Backbone.View.extend({
 	                x: -20 //center
 	            },
 	            credits: {
-		            text: 'Saiku Chart Plus plugin',
-		            href: 'http://it4biz.github.com/SaikuChartPlus'
+		            text: 'Saiku Chart Plus Plugin by IT4biz',
+              		href: 'http://it4biz.github.com/SaikuChartPlus'
 		        },
 	            subtitle: {
 	                text: '',
@@ -618,8 +613,8 @@ var Chart = Backbone.View.extend({
 	                width: $(this.workspace.el).find('.workspace_results').width() - 40	
 	            },
 	            credits: {
-		            text: 'Saiku Chart Plus plugin',
-		            href: 'http://it4biz.github.com/SaikuChartPlus'
+		           text: 'Saiku Chart Plus Plugin by IT4biz',
+              		href: 'http://it4biz.github.com/SaikuChartPlus'
 		        },
 	            title: {
 	                text: '',
@@ -672,8 +667,8 @@ var Chart = Backbone.View.extend({
 	                width: $(this.workspace.el).find('.workspace_results').width() - 40	
 	            },
 	            credits: {
-		            text: 'Saiku Chart Plus plugin',
-		            href: 'http://it4biz.github.com/SaikuChartPlus'
+		            text: 'Saiku Chart Plus Plugin by IT4biz',
+              		href: 'http://it4biz.github.com/SaikuChartPlus'
 		        },
 	            title: {
 	                text: '',
@@ -731,8 +726,8 @@ var Chart = Backbone.View.extend({
 	                width: $(this.workspace.el).find('.workspace_results').width() - 40	
 	            },
 	            credits: {
-		            text: 'Saiku Chart Plus plugin',
-		            href: 'http://it4biz.github.com/SaikuChartPlus'
+		            text: 'Saiku Chart Plus Plugin by IT4biz',
+              		href: 'http://it4biz.github.com/SaikuChartPlus'
 		        },
 	            title: {
 	                text: '',
@@ -784,8 +779,8 @@ var Chart = Backbone.View.extend({
 	                width: $(this.workspace.el).find('.workspace_results').width() - 40	
 	            },
 	            credits: {
-		            text: 'Saiku Chart Plus plugin',
-		            href: 'http://it4biz.github.com/SaikuChartPlus'
+		        	text: 'Saiku Chart Plus Plugin by IT4biz',
+              		href: 'http://it4biz.github.com/SaikuChartPlus'
 		        },
 	            title: {
 	                text: ''
@@ -956,57 +951,44 @@ function loadJS(file){
 
 
 /**
- * Loads CCC and initializes chart plugin
- */
-(function() {
-  	loadCSS('js/saiku/plugins/Chart/bootstrap/css/bootstrap.css');
-	loadCSS('js/saiku/plugins/Chart/bootstrap/css/bootstrap-responsive.css');
+ * Start Plugin
+ */ 
+ Saiku.events.bind('session:new', function(session) {
 
-	loadJS('js/saiku/plugins/Chart/bootstrap/js/bootstrap.min.js');
-	loadJS('js/saiku/plugins/Chart/highcharts/highcharts.js');
-	loadJS('js/saiku/plugins/Chart/highcharts/exporting.js');
-		
-    // Initialize CCC
-    $.ajax({
-        url: "js/saiku/plugins/Chart/ccc.js",
-        dataType: "script",
-        cache: true,
-        success: function() {        	  		
+	 	loadCSS('js/saiku/plugins/ChartPlus/bootstrap/css/bootstrap.css');
+		loadCSS('js/saiku/plugins/ChartPlus/bootstrap/css/bootstrap-responsive.css');
 
-            var initPlugin = function(session) {
-                function new_workspace(args) {
-                    // Add chart element
-                    if (typeof args.workspace.chart == "undefined") {
-                        args.workspace.chart = new Chart({ workspace: args.workspace });
-                    } 
-                }
+		loadJS('js/saiku/plugins/ChartPlus/bootstrap/js/bootstrap.min.js');
+		loadJS('js/saiku/plugins/ChartPlus/highcharts/highcharts.js');
+		loadJS('js/saiku/plugins/ChartPlus/highcharts/exporting.js');
+        loadJS('js/saiku/plugins/ChartPlus/google/ga.js');
 
-                function clear_workspace(args) {
-                    if (typeof args.workspace.chart != "undefined") {
-                        $(args.workspace.chart.nav).hide();
-                        $(args.workspace.chart.el).hide();
-                        $(args.workspace.chart.el).parents().find('.workspace_results table').show();
-                    }
-                }
-                
-                // Attach chart to existing tabs
-                for(var i = 0; i < Saiku.tabs._tabs.length; i++) {
-                    var tab = Saiku.tabs._tabs[i];
-                    new_workspace({
-                        workspace: tab.content
-                    });
-                };
-                
-                // Attach chart to future tabs
-                session.bind("workspace:new", new_workspace);
-                session.bind("workspace:clear", clear_workspace);
-            };
-
-            if (typeof Saiku.session == "undefined") {
-                Saiku.events.bind('session:new', initPlugin);
-            } else {
-                initPlugin(Saiku.session);
+        function new_workspace(args) {
+        	// Add stats element
+            if (typeof args.workspace.chartPlus == "undefined") {  
+            	   	
+            	args.workspace.chartPlus = new ChartPlus({ workspace: args.workspace });
             }
         }
+
+        function clear_workspace(args) {
+            if (typeof args.workspace.chartPlus != "undefined") {
+            	$(args.workspace.chartPlus.nav).hide();
+                $(args.workspace.chartPlus.el).parents().find('.workspace_results table').show();
+                $(args.workspace.chartPlus.el).hide();
+            }
+        }
+
+        
+        // Attach stats to existing tabs
+        for(var i = 0; i < Saiku.tabs._tabs.length; i++) {
+            var tab = Saiku.tabs._tabs[i];
+            new_workspace({
+                workspace: tab.content
+            });
+        };
+
+        // Attach stats to future tabs
+        Saiku.session.bind("workspace:new", new_workspace);
+        Saiku.session.bind("workspace:clear", clear_workspace);
     });
-}());
