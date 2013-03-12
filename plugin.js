@@ -336,7 +336,7 @@ var ChartPlus = Backbone.View.extend({
 
         var $chart_button = 
             $('<a href="#chartPlus" class="chartPlus button disabled_toolbar i18n" title="Saiku Chart Plus"></a>')
-            .css({  'background-image': "url('js/saiku/plugins/ChartPlus/chart.png')",
+            .css({  'background-image': "url('js/saiku/plugins/SaikuChartPlus/chart.png')",
                     'background-repeat':'no-repeat',
                     'background-position':'20% 50%'
                 });
@@ -955,18 +955,17 @@ function loadJS(file){
  */ 
  Saiku.events.bind('session:new', function(session) {
 
-	 	loadCSS('js/saiku/plugins/ChartPlus/bootstrap/css/bootstrap.css');
-		loadCSS('js/saiku/plugins/ChartPlus/bootstrap/css/bootstrap-responsive.css');
+	 	loadCSS('js/saiku/plugins/SaikuChartPlus/bootstrap/css/bootstrap.css');
+		loadCSS('js/saiku/plugins/SaikuChartPlus/bootstrap/css/bootstrap-responsive.css');
 
-		loadJS('js/saiku/plugins/ChartPlus/bootstrap/js/bootstrap.min.js');
-		loadJS('js/saiku/plugins/ChartPlus/highcharts/highcharts.js');
-		loadJS('js/saiku/plugins/ChartPlus/highcharts/exporting.js');
-        loadJS('js/saiku/plugins/ChartPlus/google/ga.js');
+		loadJS('js/saiku/plugins/SaikuChartPlus/bootstrap/js/bootstrap.min.js');
+		loadJS('js/saiku/plugins/SaikuChartPlus/highcharts/highcharts.js');
+		loadJS('js/saiku/plugins/SaikuChartPlus/highcharts/exporting.js');
+        loadJS('js/saiku/plugins/SaikuChartPlus/google/ga.js');
 
         function new_workspace(args) {
         	// Add stats element
-            if (typeof args.workspace.chartPlus == "undefined") {  
-            	   	
+            if (typeof args.workspace.chartPlus == "undefined") {             	   	
             	args.workspace.chartPlus = new ChartPlus({ workspace: args.workspace });
             }
         }
