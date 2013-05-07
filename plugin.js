@@ -1667,11 +1667,12 @@ var ChartPlus = Backbone.View.extend({
             legendPosition:"top",
             legendAlign: "right",
             colors: ["#B40010", "#CCC8B4", "#DDB965", "#72839D", "#1D2D40"],
+            serializeType: "highCharts",
             type: 'bar'
         }, this.options);
        
          //start serialization of data
-        if(this.options.serializeType=='highCharts' && options.type!='pie'){
+        if(options.serializeType=='highCharts' && options.type!='pie'){
         	var metadata=new Array();
 	        //numero de colunas
 	        var colNumberY=this.data.metadata.length-1;//-1 devido a coluna 0 armazena o valor de X	
