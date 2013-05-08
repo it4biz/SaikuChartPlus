@@ -39,7 +39,8 @@ var ChartPlus = Backbone.View.extend({
         this.workspace.bind('workspace:adjust', this.render);
         
         // Create navigation
-        this.nav = $("<div class='bs-docs-example chart-switcher'>"+
+        this.nav = $("<div id='message'></div>"+
+        			"<div class='bs-docs-example chart-switcher'>"+        			
 					"<div style='margin: 0;' class='btn-toolbar'>"+
 						"<div class='btn-group'>"+
 							"<button data-toggle='dropdown' class='btn dropdown-toggle'>Bar <span class='caret'></span></button>"+
@@ -807,39 +808,52 @@ var ChartPlus = Backbone.View.extend({
 	            	};		
 	        }
         }else if(options.type=='pie'){
-        	var metadata=new Array();
-	        //numero de colunas
-	        var colNumber=this.data.metadata.length;
-	        var seriesData=new Array();	        
-			var series=new Array();
-	        if (this.data.resultset.length > 0 ) {
-	        	$.each(this.data.resultset, function(key, value) {
-	        		series[key]=[value[0], value[1]];
-				});
-	        }	
-	        
-	        seriesData=[{
-	                type: 'pie',
-	                name: this.data.metadata[0].colName,
-	                data: series                
-            	}];	        
+        	if(this.data.metadata.length<3){
+	        	var metadata=new Array();
+		        //numero de colunas
+		        var colNumber=this.data.metadata.length;
+		        var seriesData=new Array();	        
+				var series=new Array();
+		        if (this.data.resultset.length > 0 ) {
+		        	$.each(this.data.resultset, function(key, value) {
+		        		var find="["+(key+1)+"]";
+		        		value[0]=value[0].replace(find,'');		
+		        		series[key]=[value[0], value[1]];
+					});
+		        }	
+		        
+		        seriesData=[{
+		                type: 'pie',
+		                name: this.data.metadata[0].colName,
+		                data: series                
+	            	}];	  
+	        }else{
+	        	messageUser('<div class="alert  alert-error">You should be have only one measure selected!</div>');
+        		return false;
+	        }      
         }else{//serializeType=='geoCharts'
-        	var series=[];			
-	        //nome das colunas
-	        var column=[];
-	        for(var i=0; i < this.data.metadata.length; i++)
-	        	column[i]=this.data.metadata[i].colName;
-        	series[0]=column;
+        	if(this.data.metadata.length<3){
+        		var series=[];			
+		        //nome das colunas
+		        var column=[];
+		        for(var i=0; i < this.data.metadata.length; i++)
+		        	column[i]=this.data.metadata[i].colName;
+	        	series[0]=column;
 
-        	if (this.data.resultset.length > 0 ) {        			
-	        	$.each(this.data.resultset, function(key, value) {	        		
-	        		var aux=value[0]+'';
-	        		var find=" ["+(key+1)+"]";	
-	        		value[0]=value[0].replace(find,'');	
-	        		series[key+1]=value; // +1 devido ao nome das colunas	        		
-				});
-	        }	
-	        //console.log(series);
+	        	if (this.data.resultset.length > 0 ) {        			
+		        	$.each(this.data.resultset, function(key, value) {	        		
+		        		var aux=value[0]+'';
+		        		var find=" ["+(key+1)+"]";	
+		        		value[0]=value[0].replace(find,'');	
+		        		series[key+1]=value; // +1 devido ao nome das colunas	        		
+					});
+		        }	
+		        //console.log(series);
+        	}else{
+        		messageUser('<div class="alert  alert-error">You should be have only one measure selected!</div>');
+        		return false;
+        	}
+        	
         }     
         //end serialization of data
 
@@ -1284,6 +1298,10 @@ function loadJS(file){
 	headID.appendChild(newScript);
 }
 
+function messageUser(msg){
+	$("#message").html(msg).show('slow');
+	setTimeout(function(){ jQuery("#message").hide('slow'); }, 2000);
+}
 
 /**
  * Start Plugin
