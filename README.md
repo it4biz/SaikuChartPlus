@@ -10,3 +10,7 @@ To learn more visit our page http://it4biz.github.com/SaikuChartPlus/
 
 Direct link to download Saiku Chart Plus:
 http://sourceforge.net/projects/saikuchartplus/files/SaikuChartPlus2.4/saikuchartsplus-plugin-2.4-RC1.zip/download
+
+Features RC3 version:
+* Position legend - https://github.com/it4biz/SaikuChartPlus/issues/4
+* Error label description - https://github.com/it4biz/SaikuChartPlus/issues/11
