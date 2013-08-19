@@ -824,25 +824,52 @@ var ChartPlus = Backbone.View.extend({
 	        }else{	        	
         		return false;
 	        }      
-        }else{//serializeType=='geoCharts'
-        	if(this.data.metadata.length<3){
+        }else if(options.type=='geoMap'){
+        	if(this.data.metadata.length>0){
         		var series=[];			
 		        //nome das colunas
 		        var column=[];
-		        for(var i=0; i < this.data.metadata.length; i++)
-		        	column[i]=this.data.metadata[i].colName;
-	        	series[0]=column;
 
-	        	if (this.data.resultset.length > 0 ) {        			
+		        column[0]=this.data.metadata[0].colName;
+		        column[1]=this.data.metadata[1].colName;
+		        series[0]=column;
+		        //for(var i=0; i < this.data.metadata.length; i++)
+		        //	column[i]=this.data.metadata[i].colName;
+	        	
+
+	        	if (this.data.resultset.length > 0 ) {   
+	        		var data= this.data;   			
 		        	$.each(this.data.resultset, function(key, value) {
-		        		series[key+1]=value; // +1 devido ao nome das colunas	        		
+		        		var array=[];
+		        		array[0]=value[0];
+		        		array[1]=value[1];
+		        		array[2]=value[1]+',';
+		        		for(var i=2; i < data.metadata.length; i++){
+		        			columnName=data.metadata[i].colName;
+		        			value=value[i];
+		        			array[2]+=' '+columnName+': '+value;
+		        		}
+		        		series[key+1]=array; // +1 devido ao nome das colunas	        		
 					});
-		        }	
-		        //console.log(series);
+		        }	        
+		        
         	}else{        		
         		return false;
         	}
         	
+        }else{//options.type=='geoChart'
+        	var series=[];			
+		    //nome das colunas
+		    var column=[];
+		    for(var i=0; i < this.data.metadata.length; i++)
+		      	column[i]=this.data.metadata[i].colName;
+	        series[0]=column;
+
+	        if (this.data.resultset.length > 0 ) {        			
+		       	$.each(this.data.resultset, function(key, value) {
+		       		series[key+1]=value; // +1 devido ao nome das colunas	        		
+				});
+		    }	
         }     
         //end serialization of data
 
@@ -1160,7 +1187,7 @@ var ChartPlus = Backbone.View.extend({
 			
         	
         	var data = google.visualization.arrayToDataTable(series);
-        		
+
 	        var options = {
 		    	width: $(this.workspace.el).find('.workspace_results').width() - 40, 
 		    	height: $(this.workspace.el).find('.workspace_results').height() - 40,
@@ -1176,7 +1203,16 @@ var ChartPlus = Backbone.View.extend({
 		else if(options.type=='geoMap')
 		{
 			
-        	var data = google.visualization.arrayToDataTable(series);
+        	//var data = google.visualization.arrayToDataTable(series);
+        	var data =new google.visualization.DataTable();
+        	data.addRows(series.length);
+        	data.addColumn('string', series[0][0]);
+			data.addColumn('number', series[0][1]);
+
+			for (var i=1; i < series.length; i++) {				
+				data.setCell(i, 0, series[i][0]);	
+				data.setCell(i, 1, series[i][1], series[i][2]);
+			};
         	
         	var options = {
 		    	width: $(this.workspace.el).find('.workspace_results').width() - 40, 
@@ -1187,6 +1223,9 @@ var ChartPlus = Backbone.View.extend({
 	    	};
 	
 	        var geoMap = new google.visualization.GeoMap(document.getElementById(this.id));
+	        google.visualization.events.addListener(geoMap, "error", function errorHandler(e) {
+			    google.visualization.errors.removeError(e.id);
+			});
 	        geoMap.draw(data, options);
 
 
