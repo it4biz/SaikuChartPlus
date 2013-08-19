@@ -789,9 +789,6 @@ var ChartPlus = Backbone.View.extend({
 	        
 	        if (this.data.resultset.length > 0 ) {
 	        	$.each(this.data.resultset, function(key, value) {
-	        		var aux=value[0]+'';
-	        		var find=" ["+(key+1)+"]";	
-	        		value[0]=value[0].replace(find,'');
 	        		x[key]=value[0];
 	        		for(var i=0; i < colNumberY; i++){
 	        			y[i][key]=value[i+1];// +1 devido ao valor de x armazenado na coluna 0	
@@ -816,12 +813,9 @@ var ChartPlus = Backbone.View.extend({
 				var series=new Array();
 		        if (this.data.resultset.length > 0 ) {
 		        	$.each(this.data.resultset, function(key, value) {
-		        		var find="["+(key+1)+"]";
-		        		value[0]=value[0].replace(find,'');		
 		        		series[key]=[value[0], value[1]];
 					});
-		        }	
-		        
+		        }		        
 		        seriesData=[{
 		                type: 'pie',
 		                name: this.data.metadata[0].colName,
@@ -841,10 +835,7 @@ var ChartPlus = Backbone.View.extend({
 	        	series[0]=column;
 
 	        	if (this.data.resultset.length > 0 ) {        			
-		        	$.each(this.data.resultset, function(key, value) {	        		
-		        		var aux=value[0]+'';
-		        		var find=" ["+(key+1)+"]";	
-		        		value[0]=value[0].replace(find,'');	
+		        	$.each(this.data.resultset, function(key, value) {
 		        		series[key+1]=value; // +1 devido ao nome das colunas	        		
 					});
 		        }	
@@ -1253,19 +1244,16 @@ var ChartPlus = Backbone.View.extend({
                     this.data.width = args.data.cellset[row].length;
                     for (var col = lowest_level; col < args.data.cellset[row].length; col++) {
                         var value = args.data.cellset[row][col].value;
-                        // check if the resultset contains the raw value, if not try to parse the given value
-                        if (args.data.cellset[row][col].properties.raw && args.data.cellset[row][col].properties.raw !== "null")
+                        // check if the resultset contains the raw value, if not try to parse the given value                        
+                        if (args.data.cellset[row][col].properties.raw && args.data.cellset[row][col].properties.raw !== "null" && col>0)
                         {
                             value = parseFloat(args.data.cellset[row][col].properties.raw);
                         } else if (typeof(args.data.cellset[row][col].value) !== "number" &&
-                            parseFloat(args.data.cellset[row][col].value.replace(/[^a-zA-Z 0-9.]+/g,''))) 
+                            parseFloat(args.data.cellset[row][col].value.replace(/[^a-zA-Z 0-9.]+/g,'')) && col>0) 
                         {
                             value = parseFloat(args.data.cellset[row][col].value.replace(/[^a-zA-Z 0-9.]+/g,''));
-                        }
-                        if (col == lowest_level) {
-                            value += " [" + row + "]";
-                        }
-                        record.push(value);
+                        }                       
+                        record.push(value);                       
                     }
                     this.data.resultset.push(record);
                 }
@@ -1313,7 +1301,7 @@ function messageUser(msg){
 
 		loadJS('js/saiku/plugins/SaikuChartPlus/bootstrap/js/bootstrap.min.js');
 		loadJS('js/saiku/plugins/SaikuChartPlus/highcharts/highcharts.js');
-		loadJS('js/saiku/plugins/SaikuChartPlus/highcharts/exporting.js');
+		//loadJS('js/saiku/plugins/SaikuChartPlus/highcharts/exporting.js');
         loadJS('js/saiku/plugins/SaikuChartPlus/google/ga.js');
 
         function new_workspace(args) {
