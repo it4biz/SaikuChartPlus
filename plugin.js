@@ -39,8 +39,7 @@ var ChartPlus = Backbone.View.extend({
         this.workspace.bind('workspace:adjust', this.render);
         
         // Create navigation
-        this.nav = $("<div id='message'></div>"+
-        			"<div class='bs-docs-example chart-switcher'>"+        			
+        this.nav = $("<div class='bs-docs-example chart-switcher'>"+        			
 					"<div style='margin: 0;' class='btn-toolbar'>"+
 						"<div class='btn-group'>"+
 							"<button data-toggle='dropdown' class='btn dropdown-toggle'>Bar <span class='caret'></span></button>"+
@@ -59,7 +58,7 @@ var ChartPlus = Backbone.View.extend({
 						"<div class='btn-group'>"+
 							"<button data-toggle='dropdown' class='btn dropdown-toggle'>Pie <span class='caret'></span></button>"+
 							"<ul class='dropdown-menu'>"+
-								"<li><a href='#piePlus'>pie</a></li>"+								
+								"<li><a href='#piePlus' data-toggle='tooltip' data-placement='right' title='Available for only one measure!'>pie</a></li>"+
 							"</ul>"+
 						"</div><!-- /btn-group -->"+
 						"<div class='btn-group'>"+
@@ -805,7 +804,7 @@ var ChartPlus = Backbone.View.extend({
 	            	};		
 	        }
         }else if(options.type=='pie'){
-        	if(this.data.metadata.length<3){
+        	if(this.data.metadata.length>0){
 	        	var metadata=new Array();
 		        //numero de colunas
 		        var colNumber=this.data.metadata.length;
@@ -822,8 +821,7 @@ var ChartPlus = Backbone.View.extend({
 		                name: this.data.metadata[0].colName,
 		                data: series                
 	            	}];	  
-	        }else{
-	        	messageUser('<div class="alert  alert-error">You should be have only one measure selected!</div>');
+	        }else{	        	
         		return false;
 	        }      
         }else{//serializeType=='geoCharts'
@@ -841,8 +839,7 @@ var ChartPlus = Backbone.View.extend({
 					});
 		        }	
 		        //console.log(series);
-        	}else{
-        		messageUser('<div class="alert  alert-error">You should be have only one measure selected!</div>');
+        	}else{        		
         		return false;
         	}
         	
