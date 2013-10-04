@@ -1199,18 +1199,30 @@ var ChartPlus = Backbone.View.extend({
 		{
 			
         	
-        	var data = google.visualization.arrayToDataTable(series);
-
-	        var options = {
-		    	width: $(this.workspace.el).find('.workspace_results').width() - 40, 
-		    	height: $(this.workspace.el).find('.workspace_results').height() - 40,
-		    	datalessRegionColor: 'F5F5F5',
-		    	region: options.region,
-		    	displayMode: 'markers'
-	    	};
-
+        	var data = google.visualization.arrayToDataTable(series);			
+			var optionsMap;
+			
+			if(options.region=='world'){
+				optionsMap = {
+					width: $(this.workspace.el).find('.workspace_results').width() - 40, 
+					height: $(this.workspace.el).find('.workspace_results').height() - 40,
+					datalessRegionColor: 'F5F5F5',
+					region: options.region,
+					displayMode: 'markers'
+				};				
+			}else{
+				optionsMap = {
+					width: $(this.workspace.el).find('.workspace_results').width() - 40, 
+					height: $(this.workspace.el).find('.workspace_results').height() - 40,
+					datalessRegionColor: 'F5F5F5',
+					region: options.region,
+					resolution: 'provinces',
+					displayMode: 'regions'
+				};
+			}
+			
 	        var geoChart = new google.visualization.GeoChart(document.getElementById(this.id));
-	        geoChart.draw(data, options);
+	        geoChart.draw(data, optionsMap);
 
 		}	
 		else if(options.type=='geoMap')
