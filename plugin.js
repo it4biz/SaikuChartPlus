@@ -46,7 +46,8 @@ var ChartPlus = Backbone.View.extend({
 							"<ul class='dropdown-menu'>"+
 								"<li><a href='#barPlus'>bar</a></li>"+
 								"<li><a href='#stackedBarPlus'>stacked bar</a></li>"+
-								"<li><a href='#columnPlus'>column bar</a></li>"+								
+								"<li><a href='#columnPlus'>column bar</a></li>"+
+								"<li><a href='#stackedColumnPlus'>stacked column bar</a></li>"+															
 							"</ul>"+
 						"</div><!-- /btn-group -->"+
 						"<div class='btn-group'>"+
@@ -1005,7 +1006,11 @@ var ChartPlus = Backbone.View.extend({
 	                x: -20
 	            },
 	            xAxis: {
-	                categories: x
+	                categories: x,
+					labels: {
+						rotation: -90,
+						align: 'right'
+					}
 	            },
 	            yAxis: {
 	                title: {
@@ -1057,7 +1062,11 @@ var ChartPlus = Backbone.View.extend({
 	                x: -20
 	            },
 	            xAxis: {
-	                categories: x
+	                categories: x,
+					labels: {
+						rotation: -90,
+						align: 'right'
+					}
 	            },
 	            yAxis: {
 	                title: {
@@ -1114,7 +1123,11 @@ var ChartPlus = Backbone.View.extend({
 	                x: -20
 	            },
 	            xAxis: {
-	                categories: x
+	                categories: x,
+					labels: {
+						rotation: -90,
+						align: 'right'
+					}
 	            },
 	            yAxis: {
 	                title: {
