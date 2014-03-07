@@ -15,3 +15,4 @@ Features RC3 version:
 * Position legend - https://github.com/it4biz/SaikuChartPlus/issues/4
 * Error label description - https://github.com/it4biz/SaikuChartPlus/issues/11
 * Add support for multiple measures at geoChart/Map
+* Ass support to GeoChart with resolution provinces
