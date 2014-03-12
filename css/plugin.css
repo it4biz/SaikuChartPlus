@@ -13,7 +13,7 @@ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
 }
 
 #nav a{
-display:block;
+display:relative;
 padding:0px 5px;
 color:#555555;
 text-decoration:none;
