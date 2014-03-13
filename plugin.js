@@ -1339,8 +1339,7 @@ function loadJS(file){
  */ 
  Saiku.events.bind('session:new', function(session) {
 
-		loadCSS('js/saiku/plugins/SaikuChartPlus/css/plugin.css');
-        loadJS('js/saiku/plugins/SaikuChartPlus/google/ga.js');
+		loadCSS('js/saiku/plugins/SaikuChartPlus/css/plugin.css');      
 
         function new_workspace(args) {
         	// Add stats element
