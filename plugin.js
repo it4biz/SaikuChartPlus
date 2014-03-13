@@ -29,6 +29,7 @@ var ChartPlus = Backbone.View.extend({
         // Bind table rendering to query result event
         _.bindAll(this, "render", "receive_data", "process_data", "show", 
             "setOptions");
+
         this.workspace.bind('query:result', this.receive_data);
         
         // Add chart button
@@ -59,7 +60,7 @@ var ChartPlus = Backbone.View.extend({
 									"<li><a href='#piePlus'>pie</a></li>"+																						
 								"</ul>"+
 							"</li>"+
-							"<li><a href='#'>Geo Chart <span class='dropdown'></span></a>"+							
+							"<li><a href='#' >Geo Chart <span class='dropdown'/></a>"+							
 								"<ul> "+
 									"<li><a href='#geoChart' id='world'>world map</a></li>"+
 									"<li class='submenu'><a href='#'>Asia</a>"+
@@ -340,7 +341,7 @@ var ChartPlus = Backbone.View.extend({
 									"</li>"+																			
 								"</ul>"+
 							"</li>"+
-							"<li><a href='#'>Geo Map <span class='dropdown'></span></a>"+							
+							"<li><a href='#'>Geo Map <span class='dropdown'/></a>"+							
 								"<ul> "+
 									"<li><a href='#geoMap' id='world'>world map</a></li>"+
 									"<li class='submenu'><a href='#'>Asia</a>"+
@@ -632,7 +633,7 @@ var ChartPlus = Backbone.View.extend({
 
         //function for menu
 		$("#nav ul ").css({display: "none"}); // Opera Fix
-		$(" #nav li").hover(function(){
+		$("#nav li").hover(function(){
 		$(this).find('ul:first').css({visibility: "visible",display: "none"}).show(400);
 			},function(){
 		$(this).find('ul:first').css({visibility: "hidden"});
@@ -650,7 +651,7 @@ var ChartPlus = Backbone.View.extend({
     add_button: function() {
 
         var $chart_button = 
-            $('<a href="#chartPlus" class="chartPlus button disabled_toolbar i18n" title="Saiku Chart Plus"></a>')
+            $('<a href="#chartPlus" class="chartPlus button i18n" title="Saiku Chart Plus"></a>')
             .css({  'background-image': "url('js/saiku/plugins/SaikuChartPlus/chart.png')",
                     'background-repeat':'no-repeat',
                     'background-position':'20% 50%'
@@ -665,10 +666,12 @@ var ChartPlus = Backbone.View.extend({
         $(this.el).toggle();
         $(this.nav).toggle();
         $(event.target).toggleClass('on');
-        
+
         if ($(event.target).hasClass('on')) {
+        	$('.render_table').toggleClass('on');        	
             this.render();
-        }
+        }else
+        	$('.render_table').toggleClass('on');
     },
     
     setOptions: function(event) {
@@ -871,7 +874,7 @@ var ChartPlus = Backbone.View.extend({
 		if(options.type=='bar'){
 			chart = new Highcharts.Chart({
 	            chart: {
-	                renderTo: this.id,
+	            	renderTo: this.id,
 	                type: 'bar',
 	                zoomType: 'x,y',
 	                height: $(this.workspace.el).find('.workspace_results').height() - 40,
@@ -1331,21 +1334,12 @@ function loadJS(file){
 	headID.appendChild(newScript);
 }
 
-function messageUser(msg){
-	$("#message").html(msg).show('slow');
-	setTimeout(function(){ jQuery("#message").hide('slow'); }, 2000);
-}
-
 /**
  * Start Plugin
  */ 
  Saiku.events.bind('session:new', function(session) {
 
-	 
 		loadCSS('js/saiku/plugins/SaikuChartPlus/css/plugin.css');
-		
-		loadJS('js/saiku/plugins/SaikuChartPlus/highcharts/highcharts.js');
-		loadJS('js/saiku/plugins/SaikuChartPlus/highcharts/exporting.js');
         loadJS('js/saiku/plugins/SaikuChartPlus/google/ga.js');
 
         function new_workspace(args) {
