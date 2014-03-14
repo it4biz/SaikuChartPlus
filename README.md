@@ -23,3 +23,12 @@ http://sourceforge.net/projects/saikuchartplus/files/SaikuChartPlus2.4/saikuchar
 Before you put this project in your production environment, please visit http://www.highcharts.com/ to learn more about the Highchart project, and https://developers.google.com/maps/terms to learn more about the Google GeoChart project.
 
 Saiku Chart Plus is a free and open source software. The UI, contained in this repository, is available under the terms of the Apache License Version 2. A copy is attached for your convenience.
+
+
+###Changelog
+
+RC3 version:
+* Position legend - https://github.com/it4biz/SaikuChartPlus/issues/4
+* Error label description - https://github.com/it4biz/SaikuChartPlus/issues/11
+* Add support for multiple measures at geoChart/Map
+* Ass support to GeoChart with resolution provinces
