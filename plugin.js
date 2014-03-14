@@ -39,15 +39,15 @@ var ChartPlus = Backbone.View.extend({
         this.workspace.bind('workspace:adjust', this.render);
         
         // Create navigation
-        this.nav = $("<div id='message'></div>"+
-        			"<div class='bs-docs-example chart-switcher'>"+        			
+        this.nav = $("<div class='bs-docs-example chart-switcher'>"+        			
 					"<div style='margin: 0;' class='btn-toolbar'>"+
 						"<div class='btn-group'>"+
 							"<button data-toggle='dropdown' class='btn dropdown-toggle'>Bar <span class='caret'></span></button>"+
 							"<ul class='dropdown-menu'>"+
 								"<li><a href='#barPlus'>bar</a></li>"+
 								"<li><a href='#stackedBarPlus'>stacked bar</a></li>"+
-								"<li><a href='#columnPlus'>column bar</a></li>"+								
+								"<li><a href='#columnPlus'>column bar</a></li>"+
+								"<li><a href='#stackedColumnPlus'>stacked column bar</a></li>"+															
 							"</ul>"+
 						"</div><!-- /btn-group -->"+
 						"<div class='btn-group'>"+
@@ -59,7 +59,7 @@ var ChartPlus = Backbone.View.extend({
 						"<div class='btn-group'>"+
 							"<button data-toggle='dropdown' class='btn dropdown-toggle'>Pie <span class='caret'></span></button>"+
 							"<ul class='dropdown-menu'>"+
-								"<li><a href='#piePlus'>pie</a></li>"+								
+								"<li><a href='#piePlus' data-toggle='tooltip' data-placement='right' title='Available for only one measure!'>pie</a></li>"+
 							"</ul>"+
 						"</div><!-- /btn-group -->"+
 						"<div class='btn-group'>"+
@@ -788,10 +788,7 @@ var ChartPlus = Backbone.View.extend({
 	        
 	        
 	        if (this.data.resultset.length > 0 ) {
-	        	$.each(this.data.resultset, function(key, value) {
-	        		var aux=value[0]+'';
-	        		var find=" ["+(key+1)+"]";	
-	        		value[0]=value[0].replace(find,'');
+	        	$.each(this.data.resultset, function(key, value) {    
 	        		x[key]=value[0];
 	        		for(var i=0; i < colNumberY; i++){
 	        			y[i][key]=value[i+1];// +1 devido ao valor de x armazenado na coluna 0	
@@ -808,16 +805,14 @@ var ChartPlus = Backbone.View.extend({
 	            	};		
 	        }
         }else if(options.type=='pie'){
-        	if(this.data.metadata.length<3){
+        	if(this.data.metadata.length>0){
 	        	var metadata=new Array();
 		        //numero de colunas
 		        var colNumber=this.data.metadata.length;
 		        var seriesData=new Array();	        
 				var series=new Array();
 		        if (this.data.resultset.length > 0 ) {
-		        	$.each(this.data.resultset, function(key, value) {
-		        		var find="["+(key+1)+"]";
-		        		value[0]=value[0].replace(find,'');		
+		        	$.each(this.data.resultset, function(key, value) {		        			
 		        		series[key]=[value[0], value[1]];
 					});
 		        }	
@@ -827,33 +822,55 @@ var ChartPlus = Backbone.View.extend({
 		                name: this.data.metadata[0].colName,
 		                data: series                
 	            	}];	  
-	        }else{
-	        	messageUser('<div class="alert  alert-error">You should be have only one measure selected!</div>');
+	        }else{	        	
         		return false;
 	        }      
-        }else{//serializeType=='geoCharts'
-        	if(this.data.metadata.length<3){
+        }else if(options.type=='geoMap'){
+        	if(this.data.metadata.length>0){
         		var series=[];			
 		        //nome das colunas
 		        var column=[];
-		        for(var i=0; i < this.data.metadata.length; i++)
-		        	column[i]=this.data.metadata[i].colName;
-	        	series[0]=column;
 
-	        	if (this.data.resultset.length > 0 ) {        			
-		        	$.each(this.data.resultset, function(key, value) {	        		
-		        		var aux=value[0]+'';
-		        		var find=" ["+(key+1)+"]";	
-		        		value[0]=value[0].replace(find,'');	
-		        		series[key+1]=value; // +1 devido ao nome das colunas	        		
+		        column[0]=this.data.metadata[0].colName;
+		        column[1]=this.data.metadata[1].colName;
+		        series[0]=column;
+		        //for(var i=0; i < this.data.metadata.length; i++)
+		        //	column[i]=this.data.metadata[i].colName;
+	        	
+
+	        	if (this.data.resultset.length > 0 ) {   
+	        		var data= this.data;   			
+		        	$.each(this.data.resultset, function(key, value) {
+		        		var array=[];
+		        		array[0]=value[0];
+		        		array[1]=value[1];
+		        		array[2]=value[1]+',';
+		        		for(var i=2; i < data.metadata.length; i++){
+		        			columnName=data.metadata[i].colName;
+		        			value=value[i];
+		        			array[2]+=' '+columnName+': '+value;
+		        		}
+		        		series[key+1]=array; // +1 devido ao nome das colunas	        		
 					});
-		        }	
-		        //console.log(series);
-        	}else{
-        		messageUser('<div class="alert  alert-error">You should be have only one measure selected!</div>');
+		        }	        
+		        
+        	}else{        		
         		return false;
         	}
         	
+        }else{//options.type=='geoChart'
+        	var series=[];			
+		    //nome das colunas
+		    var column=[];
+		    for(var i=0; i < this.data.metadata.length; i++)
+		      	column[i]=this.data.metadata[i].colName;
+	        series[0]=column;
+
+	        if (this.data.resultset.length > 0 ) {        			
+		       	$.each(this.data.resultset, function(key, value) {
+		       		series[key+1]=value; // +1 devido ao nome das colunas	        		
+				});
+		    }	
         }     
         //end serialization of data
 
@@ -864,8 +881,6 @@ var ChartPlus = Backbone.View.extend({
 	                renderTo: this.id,
 	                type: 'bar',
 	                zoomType: 'x,y',
-	                marginRight: 130,
-	                marginBottom: 40,
 	                height: $(this.workspace.el).find('.workspace_results').height() - 40,
 	                width: $(this.workspace.el).find('.workspace_results').width() - 40	
 	            },
@@ -918,8 +933,6 @@ var ChartPlus = Backbone.View.extend({
 	                renderTo: this.id,
 	                type: 'bar',
 	                zoomType: 'x,y',
-	                marginRight: 130,
-	                marginBottom: 40,
 	                height: $(this.workspace.el).find('.workspace_results').height() - 40,
 	                width: $(this.workspace.el).find('.workspace_results').width() - 40	
 	            },
@@ -977,8 +990,6 @@ var ChartPlus = Backbone.View.extend({
 	                renderTo: this.id,
 	                type: 'column',
 	                zoomType: 'x,y',
-	                marginRight: 130,
-	                marginBottom: 40,
 	                height: $(this.workspace.el).find('.workspace_results').height() - 40,
 	                width: $(this.workspace.el).find('.workspace_results').width() - 40	
 	            },
@@ -995,7 +1006,11 @@ var ChartPlus = Backbone.View.extend({
 	                x: -20
 	            },
 	            xAxis: {
-	                categories: x
+	                categories: x,
+					labels: {
+						rotation: -90,
+						align: 'right'
+					}
 	            },
 	            yAxis: {
 	                title: {
@@ -1031,8 +1046,6 @@ var ChartPlus = Backbone.View.extend({
 	                renderTo: this.id,
 	                type: 'column',
 	                zoomType: 'x,y',
-	                marginRight: 130,
-	                marginBottom: 40,
 	                height: $(this.workspace.el).find('.workspace_results').height() - 40,
 	                width: $(this.workspace.el).find('.workspace_results').width() - 40	
 	            },
@@ -1049,7 +1062,11 @@ var ChartPlus = Backbone.View.extend({
 	                x: -20
 	            },
 	            xAxis: {
-	                categories: x
+	                categories: x,
+					labels: {
+						rotation: -90,
+						align: 'right'
+					}
 	            },
 	            yAxis: {
 	                title: {
@@ -1090,8 +1107,6 @@ var ChartPlus = Backbone.View.extend({
 	                renderTo: this.id,
 	                type: 'line',
 	                zoomType: 'x,y',
-	                marginRight: 130,
-	                marginBottom: 40,
 	                height: $(this.workspace.el).find('.workspace_results').height() - 40,
 	                width: $(this.workspace.el).find('.workspace_results').width() - 40	
 	            },
@@ -1108,7 +1123,11 @@ var ChartPlus = Backbone.View.extend({
 	                x: -20
 	            },
 	            xAxis: {
-	                categories: x
+	                categories: x,
+					labels: {
+						rotation: -90,
+						align: 'right'
+					}
 	            },
 	            yAxis: {
 	                title: {
@@ -1180,24 +1199,45 @@ var ChartPlus = Backbone.View.extend({
 		{
 			
         	
-        	var data = google.visualization.arrayToDataTable(series);
-        		
-	        var options = {
-		    	width: $(this.workspace.el).find('.workspace_results').width() - 40, 
-		    	height: $(this.workspace.el).find('.workspace_results').height() - 40,
-		    	datalessRegionColor: 'F5F5F5',
-		    	region: options.region,
-		    	displayMode: 'markers'
-	    	};
-
+        	var data = google.visualization.arrayToDataTable(series);			
+			var optionsMap;
+			
+			if(options.region=='world'){
+				optionsMap = {
+					width: $(this.workspace.el).find('.workspace_results').width() - 40, 
+					height: $(this.workspace.el).find('.workspace_results').height() - 40,
+					datalessRegionColor: 'F5F5F5',
+					region: options.region,
+					displayMode: 'markers'
+				};				
+			}else{
+				optionsMap = {
+					width: $(this.workspace.el).find('.workspace_results').width() - 40, 
+					height: $(this.workspace.el).find('.workspace_results').height() - 40,
+					datalessRegionColor: 'F5F5F5',
+					region: options.region,
+					resolution: 'provinces',
+					displayMode: 'regions'
+				};
+			}
+			
 	        var geoChart = new google.visualization.GeoChart(document.getElementById(this.id));
-	        geoChart.draw(data, options);
+	        geoChart.draw(data, optionsMap);
 
 		}	
 		else if(options.type=='geoMap')
 		{
 			
-        	var data = google.visualization.arrayToDataTable(series);
+        	//var data = google.visualization.arrayToDataTable(series);
+        	var data =new google.visualization.DataTable();
+        	data.addRows(series.length);
+        	data.addColumn('string', series[0][0]);
+			data.addColumn('number', series[0][1]);
+
+			for (var i=1; i < series.length; i++) {				
+				data.setCell(i, 0, series[i][0]);	
+				data.setCell(i, 1, series[i][1], series[i][2]);
+			};
         	
         	var options = {
 		    	width: $(this.workspace.el).find('.workspace_results').width() - 40, 
@@ -1208,6 +1248,9 @@ var ChartPlus = Backbone.View.extend({
 	    	};
 	
 	        var geoMap = new google.visualization.GeoMap(document.getElementById(this.id));
+	        google.visualization.events.addListener(geoMap, "error", function errorHandler(e) {
+			    google.visualization.errors.removeError(e.id);
+			});
 	        geoMap.draw(data, options);
 
 
@@ -1254,18 +1297,15 @@ var ChartPlus = Backbone.View.extend({
                     for (var col = lowest_level; col < args.data.cellset[row].length; col++) {
                         var value = args.data.cellset[row][col].value;
                         // check if the resultset contains the raw value, if not try to parse the given value
-                        if (args.data.cellset[row][col].properties.raw && args.data.cellset[row][col].properties.raw !== "null")
+                        if (args.data.cellset[row][col].properties.raw && args.data.cellset[row][col].properties.raw !== "null" && col>0)
                         {
                             value = parseFloat(args.data.cellset[row][col].properties.raw);
                         } else if (typeof(args.data.cellset[row][col].value) !== "number" &&
-                            parseFloat(args.data.cellset[row][col].value.replace(/[^a-zA-Z 0-9.]+/g,''))) 
+                            parseFloat(args.data.cellset[row][col].value.replace(/[^a-zA-Z 0-9.]+/g,'')) && col>0) 
                         {
                             value = parseFloat(args.data.cellset[row][col].value.replace(/[^a-zA-Z 0-9.]+/g,''));
                         }
-                        if (col == lowest_level) {
-                            value += " [" + row + "]";
-                        }
-                        record.push(value);
+                        record.push(value);                        
                     }
                     this.data.resultset.push(record);
                 }
