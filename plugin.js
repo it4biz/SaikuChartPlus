@@ -42,7 +42,7 @@ var ChartPlus = Backbone.View.extend({
         // Create navigation
         this.nav = $("<div style='margin-bottom:30px'>"+
         				"<ul id='nav'> "+
-							"<li><a href='#'>Bar</a>"+							
+							"<li class='menu'><a href='#'>Bar</a>"+							
 								"<ul> "+
 									"<li><a href='#barPlus'>bar</a></li>"+
 									"<li><a href='#stackedBarPlus'>stacked bar</a></li>"+
@@ -50,17 +50,17 @@ var ChartPlus = Backbone.View.extend({
 									"<li><a href='#stackedColumnPlus'>stacked column bar</a></li>"+															
 								"</ul>"+
 							"</li>"+
-							"<li><a href='#'>Line</a>"+							
+							"<li class='menu'><a href='#'>Line</a>"+							
 								"<ul> "+
 									"<li><a href='#linePlus'>Line</a></li>"+																						
 								"</ul>"+
 							"</li>"+
-							"<li><a href='#'>Pie</a>"+							
+							"<li class='menu'><a href='#'>Pie</a>"+							
 								"<ul> "+
 									"<li><a href='#piePlus'>pie</a></li>"+																						
 								"</ul>"+
 							"</li>"+
-							"<li><a href='#' >Geo Chart <span class='dropdown'/></a>"+							
+							"<li class='menu'><a href='#'>Geo Chart <span class='dropdown'/></a>"+							
 								"<ul> "+
 									"<li><a href='#geoChart' id='world'>world map</a></li>"+
 									"<li class='submenu'><a href='#'>Asia</a>"+
@@ -341,7 +341,7 @@ var ChartPlus = Backbone.View.extend({
 									"</li>"+																			
 								"</ul>"+
 							"</li>"+
-							"<li><a href='#'>Geo Map <span class='dropdown'/></a>"+							
+							"<li class='menu'><a href='#'>Geo Map <span class='dropdown'/></a>"+							
 								"<ul> "+
 									"<li><a href='#geoMap' id='world'>world map</a></li>"+
 									"<li class='submenu'><a href='#'>Asia</a>"+
