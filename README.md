@@ -11,11 +11,10 @@ It is an open source project that helps Pentaho BI users to create other types o
 To learn more visit our page http://it4biz.github.com/SaikuChartPlus/
 
 
-### Download
+### Installation
 
-Direct link to download Saiku Chart Plus:
-http://sourceforge.net/projects/saikuchartplus/files/SaikuChartPlus2.4/saikuchartsplus-plugin-2.4-RC2.zip/download
-
+* For Pentaho BA Users, please use Pentaho Marketplace
+* For Saiku Server Users, please follow the tutorial at section "advanced instalation" in http://it4biz.github.io/SaikuChartPlus/
 
 
 ### Licenses
@@ -33,7 +32,7 @@ Saiku Chart Plus is a free and open source software. The UI, contained in this r
 * Add support for multiple measures at geoChart/Map
 * Ass support to GeoChart with resolution provinces
 
-2.5 RC1 version:
+2.5 RC4 version:
 * Removed dependency of bootstrap
 
 * Removed load.js by Google, this is load at index.html
@@ -44,11 +43,5 @@ Saiku Chart Plus is a free and open source software. The UI, contained in this r
 
 * For installation consider this:
 ```
-        <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
-        <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript"> 
-             google.load('visualization', '1.0', {'packages':['geochart','geomap']});
-        </script>
         <script type="text/javascript" src="js/saiku/plugins/SaikuChartPlus/plugin.js" defer></script>
 ```
