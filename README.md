@@ -43,5 +43,5 @@ Saiku Chart Plus is a free and open source software. The UI, contained in this r
 
 * For installation consider this:
 ```
-        <script type="text/javascript" src="js/saiku/plugins/SaikuChartPlus/plugin.js" defer></script>
+        <script type="text/javascript" src="js/saiku/plugins/SaikuChartPlus/plugin.js"></script>
 ```
