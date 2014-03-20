@@ -41,7 +41,3 @@ Saiku Chart Plus is a free and open source software. The UI, contained in this r
 
 * Changed Button Plus, add togle for table render button
 
-* For installation consider this:
-```
-        <script type="text/javascript" src="js/saiku/plugins/SaikuChartPlus/plugin.js"></script>
-```
