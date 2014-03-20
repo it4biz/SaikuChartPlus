@@ -19,6 +19,7 @@
  * Renders a chart for each workspace
  */
 var ChartPlus = Backbone.View.extend({
+	
     initialize: function(args) {
         this.workspace = args.workspace;
         
@@ -42,7 +43,7 @@ var ChartPlus = Backbone.View.extend({
         // Create navigation
         this.nav = $("<div style='margin-bottom:30px'>"+
         				"<ul id='nav'> "+
-							"<li class='menu'><a href='#'>Bar</a>"+							
+							"<li class='menu'><a href='#'>Bar <span class='dropdown'/></a>"+							
 								"<ul> "+
 									"<li><a href='#barPlus'>bar</a></li>"+
 									"<li><a href='#stackedBarPlus'>stacked bar</a></li>"+
@@ -50,12 +51,12 @@ var ChartPlus = Backbone.View.extend({
 									"<li><a href='#stackedColumnPlus'>stacked column bar</a></li>"+															
 								"</ul>"+
 							"</li>"+
-							"<li class='menu'><a href='#'>Line</a>"+							
+							"<li class='menu'><a href='#'>Line <span class='dropdown'/></a>"+							
 								"<ul> "+
 									"<li><a href='#linePlus'>Line</a></li>"+																						
 								"</ul>"+
 							"</li>"+
-							"<li class='menu'><a href='#'>Pie</a>"+							
+							"<li class='menu'><a href='#'>Pie <span class='dropdown'/></a>"+							
 								"<ul> "+
 									"<li><a href='#piePlus'>pie</a></li>"+																						
 								"</ul>"+
@@ -648,11 +649,10 @@ var ChartPlus = Backbone.View.extend({
 
     },
     
-    add_button: function() {
-
+    add_button: function() {		
         var $chart_button = 
-            $('<a href="#chartPlus" class="chartPlus button i18n" title="Saiku Chart Plus"></a>')
-            .css({  'background-image': "url('js/saiku/plugins/SaikuChartPlus/chart.png')",
+            $('<a href="#chartPlus" class="chartPlus button disabled_toolbar i18n" title="Saiku Chart Plus"></a>')
+            .css({  'background-image': "url('../saiku-chart-plus/images/chart.png')",
                     'background-repeat':'no-repeat',
                     'background-position':'20% 50%'
                 });
@@ -830,9 +830,7 @@ var ChartPlus = Backbone.View.extend({
 		        column[0]=this.data.metadata[0].colName;
 		        column[1]=this.data.metadata[1].colName;
 		        series[0]=column;
-		        //for(var i=0; i < this.data.metadata.length; i++)
-		        //	column[i]=this.data.metadata[i].colName;
-	        	
+		               	
 
 	        	if (this.data.resultset.length > 0 ) {   
 	        		var data= this.data;   			
@@ -840,11 +838,11 @@ var ChartPlus = Backbone.View.extend({
 		        		var array=[];
 		        		array[0]=value[0];
 		        		array[1]=value[1];
-		        		array[2]=value[1]+',';
+						array[2]=value[1];
 		        		for(var i=2; i < data.metadata.length; i++){
 		        			columnName=data.metadata[i].colName;
 		        			value=value[i];
-		        			array[2]+=' '+columnName+': '+value;
+		        			array[2]+=', '+columnName+': '+value;
 		        		}
 		        		series[key+1]=array; // +1 devido ao nome das colunas	        		
 					});
@@ -1192,10 +1190,8 @@ var ChartPlus = Backbone.View.extend({
         	});
 		}
 		else if(options.type=='geoChart')
-		{
-			
-        	
-        	var data = google.visualization.arrayToDataTable(series);			
+		{	
+			var data = google.visualization.arrayToDataTable(series);			
 			var optionsMap;
 			
 			if(options.region=='world'){
@@ -1223,9 +1219,7 @@ var ChartPlus = Backbone.View.extend({
 		}	
 		else if(options.type=='geoMap')
 		{
-			
-        	//var data = google.visualization.arrayToDataTable(series);
-        	var data =new google.visualization.DataTable();
+			var data =new google.visualization.DataTable();
         	data.addRows(series.length);
         	data.addColumn('string', series[0][0]);
 			data.addColumn('number', series[0][1]);
@@ -1247,9 +1241,8 @@ var ChartPlus = Backbone.View.extend({
 	        google.visualization.events.addListener(geoMap, "error", function errorHandler(e) {
 			    google.visualization.errors.removeError(e.id);
 			});
+			
 	        geoMap.draw(data, options);
-
-
 
 		}	       
 		/*********End charts draw**************/
@@ -1331,7 +1324,7 @@ function loadJS(file){
 	var newScript = document.createElement('script');
 	newScript.type = 'text/javascript';
 	newScript.src = file;
-	headID.appendChild(newScript);
+	headID.appendChild(newScript);	
 }
 
 /**
@@ -1339,8 +1332,14 @@ function loadJS(file){
  */ 
  Saiku.events.bind('session:new', function(session) {
 
-		loadCSS('js/saiku/plugins/SaikuChartPlus/css/plugin.css');      
+		loadCSS('js/saiku/plugins/saiku-chart-plus/css/plugin.css');	
 
+		loadJS('https://www.google.com/jsapi');
+		loadJS("js/saiku/plugins/saiku-chart-plus/js/google.js");
+		
+		loadJS('http://code.highcharts.com/modules/exporting.js');
+		loadJS('js/saiku/plugins/saiku-chart-plus/js/highcharts.js');
+		
         function new_workspace(args) {
         	// Add stats element
             if (typeof args.workspace.chartPlus == "undefined") {             	   	
