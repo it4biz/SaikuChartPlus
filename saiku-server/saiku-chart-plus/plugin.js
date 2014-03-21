@@ -652,7 +652,7 @@ var ChartPlus = Backbone.View.extend({
     add_button: function() {		
         var $chart_button = 
             $('<a href="#chartPlus" class="chartPlus button disabled_toolbar i18n" title="Saiku Chart Plus"></a>')
-            .css({  'background-image': "url('../saiku-chart-plus/images/chart.png')",
+            .css({  'background-image': "url('js/saiku/plugins/saiku-chart-plus/images/chart.png')",
                     'background-repeat':'no-repeat',
                     'background-position':'20% 50%'
                 });
