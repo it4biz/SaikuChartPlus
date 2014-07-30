@@ -662,16 +662,16 @@ var ChartPlus = Backbone.View.extend({
     },
     
     show: function(event, ui) {
-        $(this.workspace.el).find('.workspace_results table').toggle();
+	$(this.workspace.table.el).toggle();
         $(this.el).toggle();
-        $(this.nav).toggle();
+	$(this.nav).toggle();
         $(event.target).toggleClass('on');
 
-        if ($(event.target).hasClass('on')) {
-        	$('.render_table').toggleClass('on');        	
+	if ($(event.target).hasClass('on')) {
             this.render();
-        }else
-        	$('.render_table').toggleClass('on');
+        } else {
+            this.workspace.table.render({ data: this.workspace.query.result.lastresult() });
+        }
     },
     
     setOptions: function(event) {
