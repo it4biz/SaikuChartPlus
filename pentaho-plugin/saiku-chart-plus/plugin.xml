@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin title="saiku-chart-plus" loader="DEFAULT">
+	<lifecycle-listener class="pt.webdetails.cpk.CpkLifecycleListener"/>
+	<static-paths>
+		<static-path url="/saiku-chart-plus/static" localFolder="static"/>
+		<static-path url="/saiku-chart-plus/resources" localFolder="resources"/>
+	</static-paths>
+	<content-types>
+		<content-type>
+			<title>saiku-chart-plus</title>
+			<description></description>
+			<company name="" url="" logo="@PLUGIN_COMPANY_LOGO@"></company>
+		</content-type>
+	</content-types>
+	<content-generator
+		id="saiku-chart-plus"
+		title="saiku-chart-plus"
+		type="saiku-chart-plus"
+		class="pt.webdetails.cpk.CpkContentGenerator"/>
+	<!-- Menu entry -->
+	<menu-items>
+		<!--<menu-item id="saiku-chart-plus_main" anchor="tools-submenu" label="saiku-chart-plus" command="content/saiku-chart-plus/" type="MENU_ITEM" how="LAST_CHILD"/>-->
+	</menu-items>
+</plugin>

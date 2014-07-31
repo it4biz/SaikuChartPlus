@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>SaikuChartPlus</title>
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <!--link href="/pentaho-style/dashboard.css" rel="stylesheet" type="text/css" media="screen" /-->        
+        @HEADER@        
+        <link rel="stylesheet" type="text/css" href="../../../api/repos/saikuChartPlus/static/system/css/cpk.css" />
+    </head>
+    <body>
+        <div class="cpkWrapper">
+            <div class="cpkHeader">
+                <div id='cpkLogo'  class='span-18 cpkLogo' >
+                </div>
+                <div id='cpkText'  class='span-4 cpkSmall' >
+                    .SaikuChartPlus
+                </div>
+                <div id='cpkVersion'  class='span-3 last cpkVersion' >
+                    v TRUNK_SNAPSHOT
+                </div>
+            </div>
+            <div id='cpkSiteMapObj' class='cpkNavigation'>
+                <script type="text/javascript">
+                    var render_cpkSiteMap = {
+                        type: "siteMap",
+                        name: "render_cpkSiteMap",
+                        siteMapSelectedParameter: "Dashboards.context.file",
+                        priority: "5",
+                        parameters: [],
+                        executeAtStart: true,
+                        ajaxUrl:  'getSitemapJson',
+                        htmlObject: "cpkSiteMapObj",
+                        listeners: []
+                    };
+
+                    Dashboards.addComponents([render_cpkSiteMap]);
+                </script>
+            </div>
+            <div id="content" class="cpkContent">
+                @CONTENT@
+            </div>
+            <div class="cpkFooter">
+                @FOOTER@
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:m="http://ant.apache.org/ivy/maven">
+	<info organisation="" module="saikuChartPlus" revision="${project.revision}"/>
+	<configurations>
+		<conf name="default"/>
+		<conf name="source"/>
+		<conf name="zip"/>
+		<conf name="test" visibility="private"/>
+		<conf name="codegen" visibility="private"/>
+		<conf name="runtime" visibility="private"/>
+		<conf name="dev" visibility="private"/>
+	</configurations>
+	<publications>
+		<artifact name="${ivy.artifact.id}" type="jar" conf="default" />
+		<artifact name="${ivy.artifact.id}" type="zip" conf="zip" />
+		<artifact name="${ivy.artifact.id}" m:classifier="sources" type="source" ext="jar" conf="source"/>
+	</publications>
+	<dependencies defaultconf="runtime->default">
+ 		<dependency org="pentaho" name="cpf-core"
+		  rev="${dependency.cpf.revision}" transitive="false" changing="true" conf='default->default'/>
+  		<dependency org="pentaho" name="${cpf.pentaho.artifact}"
+		  rev="${dependency.cpf.revision}" transitive="false" changing="true" conf='default->default'/>
+		  <dependency org="pentaho" name="cpk-core"
+		  rev="${dependency.cpk.revision}" transitive="false" changing="true" conf='default->default'/>
+  		<dependency org="pentaho" name="${cpk.pentaho.artifact}"
+		  rev="${dependency.cpk.revision}" transitive="false" changing="true" conf='default->default'/>
+		<dependency org="org.codehaus.jackson" name="jackson-mapper-asl" rev="1.9.12" conf='default->default' />
+		<dependency org="com.fasterxml.jackson.core" name="jackson-core" rev="2.2.2" conf='default->default' />
+		<dependency org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.2.2" conf='default->default' />
+		<dependency org="com.fasterxml.jackson.core" name="jackson-annotations" rev="2.2.2" conf='default->default'/>
+  </dependencies>
+</ivy-module>

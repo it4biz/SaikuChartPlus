@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+	<cde-styles>
+		<path>system/saiku-chart-plus/resources/styles</path>
+	</cde-styles>
+  	<cde-datasources/>
+	<cde-components>
+	  <!-- paths from solution with cde component definitions to be loaded-->
+	  <path>system/saiku-chart-plus/resources/components</path>
+	  <path>saiku-chart-plus/components</path>
+	</cde-components>
+</settings>

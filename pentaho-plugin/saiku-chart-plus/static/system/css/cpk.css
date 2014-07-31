@@ -1,0 +1,272 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+
+/*
+ * WDStyleGuide Template CSS  
+ *
+ * Use this as a template to format the styles of specific projects. Most of 
+ * the most commonly used classes/rules are already written here. The file is
+ * divided in the following sections:
+ *
+ *    Fonts
+ *    Style Resets
+ *    1. BACKGROUND 
+ *    2. HEADER 
+ *    3. FILTER CELLS
+ *    4. DATA CELLS
+ *    5. TABLES
+ *    6. CHARTS 
+ *    7. SELECTORS AND BUTTONS 
+ *    Other 
+ *    Project Specific Items  
+ *
+*/
+
+
+/* =============================================================================
+   Fonts
+   ========================================================================== */
+
+@font-face {
+    font-family: 'Gudea';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Gudea'), url('http://themes.googleusercontent.com/static/fonts/gudea/v1/kfCeUiT0HGXHQC8YVeaKy6CWcynf_cDxXwCLxiixG1c.woff') format('woff');
+}
+
+
+/* =============================================================================
+   Style Resets
+   ========================================================================== */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  /*margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: Open Sans, Arial, sans-serif;*/
+}
+
+.WDhidden{
+    display:none;
+}
+
+
+
+
+/* =============================================================================
+   1. BACKGROUND 
+   ========================================================================== */
+
+/* Window Background */
+body{
+    font-family: Gudea;
+    background: #dee8ec;
+}
+
+/* =============================================================================
+   2. HEADER 
+   ========================================================================== */
+.cpkHeader {
+    height: 70px;
+    background: url(../img/cpkHeaderBackground.png) no-repeat scroll center 36px;
+    z-index: 100;
+
+    margin-right:auto;
+    margin-left:auto;
+    width: 1018px;
+
+    margin-bottom:-9px;
+    padding-bottom: 10px;
+    padding-left: 34px;
+    padding-right:34px;
+    position: relative;
+    display:block;
+    
+}
+
+.cpkLogo {
+    background: url(../img/pluginLogo.png) no-repeat right bottom;
+    height: 15px;
+    margin-top: 50px;
+    display:inline-block;
+}
+
+.cpkSmall {
+    font-size: 11px;
+    margin-top: 52px;
+    height: 15px;
+    display:inline-block;
+}
+
+.cpkVersion {
+    font-size: 11px;
+    color: #B3BFC4;
+    margin-top: 52px;
+    height: 15px;
+    display:inline-block;
+}
+
+
+
+/* =============================================================================
+   3. FILTER CELLS
+   ========================================================================== */
+
+/* =============================================================================
+   4. DATA CELLS
+   ========================================================================== */
+
+/* =============================================================================
+   5. TABLES
+   ========================================================================== */
+
+/* =============================================================================
+   6. CHARTS 
+   ========================================================================== */
+
+/* =============================================================================
+   7. SELECTORS AND BUTTONS 
+   ========================================================================== */
+
+/* =============================================================================
+   Other 
+   ========================================================================== */
+
+
+.cpkNavigation {
+    display:block;
+    width:950px;
+    margin-left:auto;
+    margin-right:auto;
+    height:34px;
+}
+
+
+/*** ESSENTIAL STYLES ***/
+.cpkNavigation .siteMap, 
+.cpkNavigation .siteMap * {
+    margin:			0;
+    padding:		0;
+    list-style:		none;
+}
+.cpkNavigation .siteMap {
+    line-height:	1.0;
+}
+.cpkNavigation .siteMap .siteMap {
+    position:		absolute;
+    top:			-999em;
+    width:			8em; /* left offset of submenus need to match (see below) */
+}
+.cpkNavigation .siteMap .siteMap .siteMapItem {
+    width:			100%;
+}
+.cpkNavigation .siteMap .siteMapItem:hover {
+    visibility:		inherit; /* fixes IE7 'sticky bug' */
+}
+.cpkNavigation .siteMap .siteMapItem {
+    float:			left;
+    position:		relative;
+}
+.cpkNavigation .siteMap a {
+    display:		block;
+    position:		relative;
+}
+.cpkNavigation .siteMapItem:hover > .siteMapLevel1 {
+    left:			0;
+    top:			100%; /* match top ul .siteMapItemst item height */
+    z-index:		99;
+}
+.cpkNavigation .siteMap .siteMapItem:hover .siteMapItem .siteMap{
+    top:			-999em;
+}
+.cpkNavigation .siteMap .siteMapItem .siteMapItem:hover .siteMap{
+    left:			100%; /* match .siteMap width */
+    top:			0;
+    margin-left:    -12px;
+}
+.cpkNavigation .siteMap .siteMapItem .siteMapItem:hover .siteMapItem .siteMap{
+    top:			-999em;
+}
+.cpkNavigation .siteMap .siteMapItem .siteMapItem .siteMapItem:hover .siteMap{
+    left:			100%; /* match .siteMap width */
+    top:			0;
+    margin-left:    -12px;
+}
+
+/*** DEMO SKIN ***/
+.cpkNavigation .siteMap {
+    float:  left;
+    width: 100%;
+    background: #57A32B;
+    margin-top: 0px;
+}
+.cpkNavigation .siteMap a {
+    padding: 		10px 20px;
+    color: rgb(34, 34, 34);
+    text-decoration: none;
+}
+.cpkNavigation .siteMap .siteMapItem.siteMapSelected a {
+    color: #fff;
+}
+.cpkNavigation .siteMap a { /* visited pseudo selector so IE6 applies text colour*/
+    color: rgb(34, 34, 34);
+    font-size: 13px;
+
+}
+.cpkNavigation .siteMap .siteMapItem {
+    background: #57A32B;
+    cursor:  pointer;
+}
+.cpkNavigation .siteMap .siteMapItem:hover,
+.cpkNavigation .siteMap a:focus, 
+.cpkNavigation .siteMap a:hover, 
+.cpkNavigation .siteMap a:active {
+    color: #fff;
+    background-position:86% 52%;
+    outline:		0;
+}
+
+
+.cpkNavigation .siteMap > .siteMapItem > .siteMap,
+.cpkNavigation .siteMap > .siteMapItem > .siteMap a {
+    background: #222;
+    color: #fff;
+}
+.cpkNavigation .siteMap > .siteMapItem > .siteMap a:hover {
+    background: #57A32B;
+    color: rgb(34, 34, 34) ;
+}
+
+/*** shadows for all but IE6 ***/
+.cpkNavigation .siteMap .siteMap {
+    padding: 0 0 12px 0;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 12px;
+    -moz-border-radius-bottomleft: 12px;
+    -webkit-border-radius: 0px 0px 12px 12px;
+    -o-border-radius: 0px 0px 12px 12px;
+    -ms-border-radius: 0px 0px 12px 12px;	
+    border-radius: 0px 0px 12px 12px;	
+    width:250px;
+
+}
+
+
+
+/* =============================================================================
+   Project Specific Items 
+   ========================================================================== */

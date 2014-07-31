@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cpk>
+    <elementTypes defaultElement="main">
+        <elementType name="Dashboard" class="pt.webdetails.cpk.elements.impl.DashboardElement">
+            <elementLocations>
+                <elementLocation path="dashboards/admin" isRecursive="true" pattern=".*\.wcdf" adminOnly="true"/>
+                <elementLocation path="dashboards/" isRecursive="true" pattern=".*\.wcdf" adminOnly="false"/>
+            </elementLocations>
+        </elementType>
+        <elementType name="Kettle" class="pt.webdetails.cpk.elements.impl.KettleJobElement">
+            <elementLocations>
+                <elementLocation path="endpoints/kettle/admin" isRecursive="true" pattern=".*\.kjb" adminOnly="true"/>
+                <elementLocation path="endpoints/kettle/" isRecursive="true" pattern=".*\.kjb" adminOnly="false"/>
+            </elementLocations>
+        </elementType>
+        <elementType name="Kettle" class="pt.webdetails.cpk.elements.impl.KettleTransformationElement">
+            <elementLocations>
+                <elementLocation path="endpoints/kettle/admin" isRecursive="true" pattern=".*\.ktr" adminOnly="true"/>
+                <elementLocation path="endpoints/kettle/" isRecursive="true" pattern=".*\.ktr" adminOnly="false"/>
+            </elementLocations>
+        </elementType>
+    </elementTypes> 
+    <info>
+        <CPK_version>5</CPK_version>
+        <description>It is an open source project that helps Pentaho BI users to create other types of charts and maps based on Saiku Project, Highcharts and Google Maps.</description>
+        <name>saiku-chart-plus</name>
+        <author_email>info@it4biz.com.br</author_email>
+        <author_name>IT4biz</author_name>
+        <company_name>IT4biz IT Solutions</company_name>
+        <company_url>www.it4biz.com.br</company_url>
+        <creation_date>2014-07-31</creation_date>
+        <version>0.5</version>
+    </info>
+</cpk> 

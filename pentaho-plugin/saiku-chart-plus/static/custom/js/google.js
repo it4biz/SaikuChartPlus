@@ -1,0 +1,1 @@
+setTimeout(function(){google.load('visualization', '1', {'callback':'', 'packages':['geochart','geomap']})}, 2000);
