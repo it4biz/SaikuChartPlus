@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<plugin title="Saiku Chart Plus" name="saiku-chart-plus">
-	<static-paths>
-		<static-path url="/saiku-chart-plus/images" localFolder="images" />
-		<static-path url="/saiku-chart-plus/css" localFolder="css" />
-		<static-path url="/saiku-chart-plus/js" localFolder="js" />		
-	</static-paths>
-</plugin>

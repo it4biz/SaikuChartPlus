@@ -652,7 +652,7 @@ var ChartPlus = Backbone.View.extend({
     add_button: function() {		
         var $chart_button = 
             $('<a href="#chartPlus" class="chartPlus button disabled_toolbar i18n" title="Saiku Chart Plus"></a>')
-            .css({  'background-image': "url('../saiku-chart-plus/images/chart.png')",
+            .css({  'background-image': "url('/pentaho/content/saiku-chart-plus/static/custom/img/chart.png')",
                     'background-repeat':'no-repeat',
                     'background-position':'20% 50%'
                 });
@@ -996,6 +996,7 @@ var ChartPlus = Backbone.View.extend({
 	                x: -20 //center
 	            },
 	            subtitle: {
+
 	                text: '',
 	                x: -20
 	            },
@@ -1276,13 +1277,13 @@ function loadJS(file){
  */ 
  Saiku.events.bind('session:new', function(session) {
 
-		loadCSS('../saiku-chart-plus/css/plugin.css');	
+		loadCSS('/pentaho/content/saiku-chart-plus/static/custom/css/plugin.css');	
 
 		loadJS('https://www.google.com/jsapi');
-		loadJS("../saiku-chart-plus/js/google.js");
+		loadJS("/pentaho/content/saiku-chart-plus/static/custom/js/google.js");
 		
 		loadJS('http://code.highcharts.com/modules/exporting.js');
-		loadJS('../saiku-chart-plus/js/highcharts.js');
+		loadJS('/pentaho/content/saiku-chart-plus/static/custom/js/highcharts.js');
 		
         function new_workspace(args) {
         	// Add stats element
