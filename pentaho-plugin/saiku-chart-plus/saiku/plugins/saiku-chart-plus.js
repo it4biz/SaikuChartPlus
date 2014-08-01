@@ -22,16 +22,35 @@ var ChartPlus = Backbone.View.extend({
 	
     initialize: function(args) {
         this.workspace = args.workspace;
-        
-        // Create a unique ID for use as the CSS selector
+	
+	        
+        //console.log(file);
+	
+	/*
+
+	$.ajax({	
+		async: false,
+		dataType: "json",
+		url: "/pentaho/plugin/saiku-chart-plus/api/get_options", 
+		data: { paramFILE: file },
+		success: function( json ) {
+			this.options=JSON.parse(json.data[0].options);
+			console.log( options );
+		}
+	});   
+	*/
+
+	// Create a unique ID for use as the CSS selector
         this.id = _.uniqueId("chartPlus_");
         $(this.el).attr({ id: this.id });
         
         // Bind table rendering to query result event
-        _.bindAll(this, "render", "receive_data", "process_data", "show", 
+        _.bindAll(this, "render", "receive_data", "process_data","receive_options", "process_options", "save_options", "show", 
             "setOptions");
 
         this.workspace.bind('query:result', this.receive_data);
+	
+	this.workspace.bind('query:result', this.receive_options);
         
         // Add chart button
         this.add_button();
@@ -39,13 +58,13 @@ var ChartPlus = Backbone.View.extend({
         
         // Listen to adjust event and rerender chart
         this.workspace.bind('workspace:adjust', this.render);
-        
+
         // Create navigation
         this.nav = $("<div style='margin-bottom:30px'>"+
         				"<ul id='nav'> "+
 							"<li class='menu'><a href='#'>Bar <span class='dropdown'/></a>"+							
 								"<ul> "+
-									"<li><a href='#bar'>bar</a></li>"+
+									"<li><a href='#bar' >bar</a></li>"+
 									"<li><a href='#stackedBar'>stacked bar</a></li>"+
 									"<li><a href='#column'>column bar</a></li>"+
 									"<li><a href='#stackedColumn'>stacked column bar</a></li>"+															
@@ -53,14 +72,14 @@ var ChartPlus = Backbone.View.extend({
 							"</li>"+
 							"<li class='menu'><a href='#'>Line <span class='dropdown'/></a>"+							
 								"<ul> "+
-									"<li><a href='#line'>Line</a></li>"+																						
+									"<li><a href='#line' id='teste_click'>Line</a></li>"+																						
 								"</ul>"+
 							"</li>"+
 							"<li class='menu'><a href='#'>Pie <span class='dropdown'/></a>"+							
 								"<ul> "+
 									"<li><a href='#pie'>pie</a></li>"+																						
 								"</ul>"+
-							"</li>"+
+							"</li>"+							
 							"<li class='menu'><a href='#'>Geo Chart <span class='dropdown'/></a>"+							
 								"<ul> "+
 									"<li><a href='#geoChart' id='world'>world map</a></li>"+
@@ -623,6 +642,37 @@ var ChartPlus = Backbone.View.extend({
 									"</li>"+
 								"</ul>"+
 							"</li>"+
+							"<li class='menu'><a href='#'>Configure <span class='dropdown'/></a>"+							
+								"<ul> "+
+									"<li><a>Display</a>"+
+										"<ul> "+
+											"<li>"+	
+												"<input type='radio' name='openAtStart' value='true'>True<br>"+
+												"<input type='radio' name='openAtStart' value='false' checked>False<br>"+
+												"<a href='#options'>OK</a>"+
+											"</li>"+
+										"</ul>"+
+									"</li>"+
+									"<li><a>yAxis</a>"+
+										"<ul> "+
+											"<li>"+	
+												"<input type='radio' name='openAtStart' value='true'>Numeric<br>"+
+												"<input type='radio' name='openAtStart' value='false' checked>Percentage<br>"+
+												"<a href='#options'>OK</a>"+
+											"</li>"+
+										"</ul>"+
+									"</li>"+
+									"<li><a>xAxis</a>"+
+										"<ul> "+
+											"<li>"+	
+												"<input type='radio' name='openAtStart' value='true'>Rotate 90º<br>"+
+												"<input type='radio' name='openAtStart' value='false' checked>Rotate 45º<br>"+
+												"<a href='#options'>OK</a>"+
+											"</li>"+
+										"</ul>"+
+									"</li>"+
+								"</ul>"+
+							"</li>"+
 						"</ul>"+
 					"</div>");
 
@@ -645,8 +695,6 @@ var ChartPlus = Backbone.View.extend({
             .prepend($(this.el).hide())
             .prepend(this.nav.hide());
 
-		
-
     },
     
     add_button: function() {		
@@ -666,7 +714,6 @@ var ChartPlus = Backbone.View.extend({
         $(this.el).toggle();
 	$(this.nav).toggle();
         $(event.target).toggleClass('on');
-
 	if ($(event.target).hasClass('on')) {
             this.render();
         } else {
@@ -684,18 +731,22 @@ var ChartPlus = Backbone.View.extend({
         		var region=$(event.target).attr('id');
 			chartOptions.region=region;
         		this.render(chartOptions);
-        	}else
-            	this.render(chartOptions);
+        	}else if(type=='options'){
+			this.save_options(this);
+		}else
+            		this.render(chartOptions);
         } catch (e) { }
         
         return false;
     },  
     
    render: function(chartOptions) {
-	
-        if (! $(this.workspace.toolbar.el).find('.chartPlus').hasClass('on')) {
+	console.log(chartOptions);
+        
+	if (! $(this.workspace.toolbar.el).find('.chartPlus').hasClass('on')) {
             return;
         }
+	
         
         //configurações default
         var options = _.extend({        
@@ -740,6 +791,7 @@ var ChartPlus = Backbone.View.extend({
 	        var seriesData=[];
 	        for(var i=0; i < colNumberY; i++){
 	        	seriesData[i]={
+
 	                name: this.data.metadata[i+1].colName,
 	                data: y[i]
 	            	};		
@@ -1249,7 +1301,54 @@ var ChartPlus = Backbone.View.extend({
         } else {
             $(this.el).text("No results");
         }
-    }
+    },
+	
+	receive_options: function(args) {
+	        return _.delay(this.process_options, 3, args);
+    	},
+
+	process_options: function (args){
+		var file=args.workspace.item.path;
+		$.ajax({	
+			async: false,
+			url: "/pentaho/plugin/saiku-chart-plus/api/refresh"
+		});
+
+		$.ajax({	
+			async: false,
+			dataType: "json",
+			url: "/pentaho/plugin/saiku-chart-plus/api/get_options", 
+			data: { paramFILE: file, paramTS: new Date().getTime() },
+			success: function( json ) {
+				//console.log(json);
+				args.options=json;
+				
+				//console.log(args.options[0].openAtStart);
+				//console.log( args);
+
+				//openAtStart propertie
+				if(args.options[0].openAtStart=="true"){
+					$( ".chartPlus" ).trigger( "click" );	
+					$( "#teste_click" ).trigger( "click" );
+				}
+				
+			}
+		}); 
+	},
+	save_options: function (args){
+		var option=$('input[name=openAtStart]:checked').val();
+		var file=args.workspace.item.path;
+		$.ajax({	
+			async: false,
+			dataType: "json",
+			url: "/pentaho/plugin/saiku-chart-plus/api/set_options", 
+			data: { paramFILE: file, paramOPTIONS: option, paramTS: new Date().getTime() },
+			success: function( json ) {
+				console.log(json);				
+			}
+		});
+		
+	}
 });
 
 function loadCSS(file){
@@ -1272,6 +1371,7 @@ function loadJS(file){
 	headID.appendChild(newScript);	
 }
 
+
 /**
  * Start Plugin
  */ 
@@ -1279,11 +1379,13 @@ function loadJS(file){
 
 		loadCSS('/pentaho/content/saiku-chart-plus/static/custom/css/plugin.css');	
 
+
 		loadJS('https://www.google.com/jsapi');
 		loadJS("/pentaho/content/saiku-chart-plus/static/custom/js/google.js");
 		
 		loadJS('http://code.highcharts.com/modules/exporting.js');
 		loadJS('/pentaho/content/saiku-chart-plus/static/custom/js/highcharts.js');
+
 		
         function new_workspace(args) {
         	// Add stats element
@@ -1300,6 +1402,9 @@ function loadJS(file){
             }
         }
 
+	function load(){	
+		console.log('Timeout'); 		
+	}
         
         // Attach stats to existing tabs
         for(var i = 0; i < Saiku.tabs._tabs.length; i++) {
@@ -1312,4 +1417,6 @@ function loadJS(file){
         // Attach stats to future tabs
         Saiku.session.bind("workspace:new", new_workspace);
         Saiku.session.bind("workspace:clear", clear_workspace);
+	Saiku.session.bind("query:result", load);
     });
+
