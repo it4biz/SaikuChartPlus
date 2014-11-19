@@ -45,20 +45,20 @@ var ChartPlus = Backbone.View.extend({
         				"<ul id='nav'> "+
 							"<li class='menu'><a href='#'>Bar <span class='dropdown'/></a>"+							
 								"<ul> "+
-									"<li><a href='#barPlus'>bar</a></li>"+
-									"<li><a href='#stackedBarPlus'>stacked bar</a></li>"+
-									"<li><a href='#columnPlus'>column bar</a></li>"+
-									"<li><a href='#stackedColumnPlus'>stacked column bar</a></li>"+															
+									"<li><a href='#bar'>bar</a></li>"+
+									"<li><a href='#stackedBar'>stacked bar</a></li>"+
+									"<li><a href='#column'>column bar</a></li>"+
+									"<li><a href='#stackedColumn'>stacked column bar</a></li>"+															
 								"</ul>"+
 							"</li>"+
 							"<li class='menu'><a href='#'>Line <span class='dropdown'/></a>"+							
 								"<ul> "+
-									"<li><a href='#linePlus'>Line</a></li>"+																						
+									"<li><a href='#line'>Line</a></li>"+																						
 								"</ul>"+
 							"</li>"+
 							"<li class='menu'><a href='#'>Pie <span class='dropdown'/></a>"+							
 								"<ul> "+
-									"<li><a href='#piePlus'>pie</a></li>"+																						
+									"<li><a href='#pie'>pie</a></li>"+																						
 								"</ul>"+
 							"</li>"+
 							"<li class='menu'><a href='#'>Geo Chart <span class='dropdown'/></a>"+							
@@ -662,93 +662,37 @@ var ChartPlus = Backbone.View.extend({
     },
     
     show: function(event, ui) {
-        $(this.workspace.el).find('.workspace_results table').toggle();
+	$(this.workspace.table.el).toggle();
         $(this.el).toggle();
-        $(this.nav).toggle();
+	$(this.nav).toggle();
         $(event.target).toggleClass('on');
 
-        if ($(event.target).hasClass('on')) {
-        	$('.render_table').toggleClass('on');        	
+	if ($(event.target).hasClass('on')) {
             this.render();
-        }else
-        	$('.render_table').toggleClass('on');
+        } else {
+            this.workspace.table.render({ data: this.workspace.query.result.lastresult() });
+        }
     },
     
     setOptions: function(event) {
         var type = $(event.target).attr('href').replace('#', '');
-        
+        var chartOptions=[];
+	chartOptions.type=type;
+	
         try {
         	if(type=='geoChart' || type=='geoMap'){
         		var region=$(event.target).attr('id');
-        		this[type](region);
+			chartOptions.region=region;
+        		this.render(chartOptions);
         	}else
-            	this[type]();
+            	this.render(chartOptions);
         } catch (e) { }
         
         return false;
-    },
+    },  
     
-    barPlus: function() {
-        this.options.stacked = false;
-        this.options.type = "bar";
-        this.options.serializeType = "highCharts";
-        this.render();
-    },
-    
-    stackedBarPlus: function() {
-        this.options.stacked = true;
-        this.options.type = "stackedBar";
-        this.options.serializeType = "highCharts";
-        this.render();
-    },
-
-    columnPlus: function() {
-        this.options.stacked = true;
-        this.options.type = "column";
-        this.options.serializeType = "highCharts";
-        this.render();
-    },
-
-    stackedColumnPlus: function() {
-        this.options.stacked = true;
-        this.options.type = "stackedColumn";
-        this.options.serializeType = "highCharts";
-        this.render();
-    },
-
-    linePlus: function() {
-        this.options.stacked = false;
-        this.options.type = "line";
-        this.options.serializeType = "highCharts";
-        this.render();
-    },
-    
-    piePlus: function() {
-        this.options.stacked = false;
-        this.options.type = "pie";
-        this.options.serializeType = "highCharts";
-        this.render();
-    },
-
-    mapPlus: function() {
-        this.options.type = "map";
-        this.options.serializeType = "geoCharts";
-        this.render();
-    },
-    geoChart: function(region) {
-        this.options.type = 'geoChart';
-        this.options.region=region;
-        this.options.serializeType = "geoCharts"; 
-        this.render();
-    },
-    geoMap: function(region) {
-        this.options.type = 'geoMap';
-        this.options.region=region;
-        this.options.serializeType = "geoCharts";         
-        this.render();
-    },
-
-   	render: function() {
+   render: function(chartOptions) {
+	
         if (! $(this.workspace.toolbar.el).find('.chartPlus').hasClass('on')) {
             return;
         }
@@ -769,10 +713,10 @@ var ChartPlus = Backbone.View.extend({
             colors: ["#B40010", "#CCC8B4", "#DDB965", "#72839D", "#1D2D40"],
             serializeType: "highCharts",
             type: 'bar'
-        }, this.options);
+        }, chartOptions);
        
          //start serialization of data
-        if(options.serializeType=='highCharts' && options.type!='pie'){
+        if(options.type!='pie' && options.type!='geoMap' && options.type!='geoChart'){
         	var metadata=new Array();
 	        //numero de colunas
 	        var colNumberY=this.data.metadata.length-1;//-1 devido a coluna 0 armazena o valor de X	
@@ -800,7 +744,7 @@ var ChartPlus = Backbone.View.extend({
 	                data: y[i]
 	            	};		
 	        }
-        }else if(options.type=='pie'){
+        }else if(options.type=='pie' && options.type!='geoMap' && options.type!='geoChart'){
         	if(this.data.metadata.length>0){
 	        	var metadata=new Array();
 		        //numero de colunas
@@ -869,8 +813,8 @@ var ChartPlus = Backbone.View.extend({
         //end serialization of data
 
         //start draw graphics
-		if(options.type=='bar'){
-			chart = new Highcharts.Chart({
+	if(options.type=='bar'){
+		chart = new Highcharts.Chart({
 	            chart: {
 	            	renderTo: this.id,
 	                type: 'bar',
@@ -920,9 +864,9 @@ var ChartPlus = Backbone.View.extend({
 	            series: seriesData
 	        });	
 		}
-		else if(options.type=='stackedBar')
+	else if(options.type=='stackedBar')
 			{
-			chart = new Highcharts.Chart({
+		chart = new Highcharts.Chart({
 	            chart: {
 	                renderTo: this.id,
 	                type: 'bar',
@@ -977,9 +921,9 @@ var ChartPlus = Backbone.View.extend({
 	            series: seriesData
 	        });	
 		}
-		else if(options.type=='column')
+	else if(options.type=='column')
 			{
-			chart = new Highcharts.Chart({
+		chart = new Highcharts.Chart({
 	            chart: {
 	                renderTo: this.id,
 	                type: 'column',
@@ -1033,9 +977,9 @@ var ChartPlus = Backbone.View.extend({
 	            series: seriesData
 	        });	
 		}
-		else if(options.type=='stackedColumn')
+	else if(options.type=='stackedColumn')
 			{
-			chart = new Highcharts.Chart({
+		chart = new Highcharts.Chart({
 	            chart: {
 	                renderTo: this.id,
 	                type: 'column',
@@ -1094,9 +1038,9 @@ var ChartPlus = Backbone.View.extend({
 	            series: seriesData
 	        });	
 		}
-		else if(options.type=='line')
+	else if(options.type=='line')
 			{
-			chart = new Highcharts.Chart({
+		chart = new Highcharts.Chart({
 	            chart: {
 	                renderTo: this.id,
 	                type: 'line',
@@ -1150,9 +1094,9 @@ var ChartPlus = Backbone.View.extend({
 	            series: seriesData
 	        });	
 		}
-		else if(options.type=='pie')
+	else if(options.type=='pie')
 		{
-			chart = new Highcharts.Chart({
+		chart = new Highcharts.Chart({
 	            chart: {
 	                renderTo: this.id,
 	                plotBackgroundColor: null,
@@ -1189,7 +1133,7 @@ var ChartPlus = Backbone.View.extend({
 	            series: seriesData
         	});
 		}
-		else if(options.type=='geoChart')
+	else if(options.type=='geoChart')
 		{	
 			var data = google.visualization.arrayToDataTable(series);			
 			var optionsMap;
