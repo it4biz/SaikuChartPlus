@@ -1281,8 +1281,9 @@ function loadJS(file){
 		loadJS('https://www.google.com/jsapi');
 		loadJS("../saiku-chart-plus/js/google.js");
 		
-		loadJS('http://code.highcharts.com/modules/exporting.js');
 		loadJS('../saiku-chart-plus/js/highcharts.js');
+		loadJS('http://code.highcharts.com/modules/exporting.js');
+		
 		
         function new_workspace(args) {
         	// Add stats element
