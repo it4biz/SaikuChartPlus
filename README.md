@@ -6,6 +6,8 @@ What is Saiku Chart Plus?
 
 It is an open source project that helps Pentaho BI users to create other types of charts and maps based on Saiku Project, Highcharts and Google Maps.
 
+Saiku Chart Plus is used by more than 120 countries around the World.
+
 ### Read More
 
 To learn more visit our page http://it4biz.github.com/SaikuChartPlus/
@@ -16,6 +18,8 @@ To learn more visit our page http://it4biz.github.com/SaikuChartPlus/
 * For Pentaho BA Users, please use Pentaho Marketplace
 * For Saiku Server Users, please follow the tutorial at section "advanced instalation" in http://it4biz.github.io/SaikuChartPlus/
 
+### Support
+* If you need support please feel free to create a issue here https://github.com/it4biz/SaikuChartPlus/issues we will do our best to help you.
 
 ### Licenses
 
