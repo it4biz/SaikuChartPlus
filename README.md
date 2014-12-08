@@ -43,3 +43,7 @@ Saiku Chart Plus is a free and open source software. The UI, contained in this r
 
 * Changed Button Plus, add togle for table render button
 
+###People talking about us
+http://www.osbi.fr/saiku-chart-plus/
+http://www.redopenbi.com/group/saiku/forum/topics/tutorial-01-saiku-chart-plus-geomap-y-geochart
+http://www.dataprix.com/blog-it/business-intelligence/saiku-chart-plus-geomap-geochart
