@@ -46,4 +46,6 @@ Saiku Chart Plus is a free and open source software. The UI, contained in this r
 ###People talking about us
 http://www.osbi.fr/saiku-chart-plus/ <BR>
 http://www.redopenbi.com/group/saiku/forum/topics/tutorial-01-saiku-chart-plus-geomap-y-geochart <BR>
-http://www.dataprix.com/blog-it/business-intelligence/saiku-chart-plus-geomap-geochart <BR>
+http://www.dataprix.com/blog-it/business-intelligence/saiku-chart-plus-geomap-geochart <BR><BR>
+
+If your link is not listed, please contact us by email info@it4biz.com.br<BR>
