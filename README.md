@@ -30,6 +30,9 @@ Saiku Chart Plus is a free and open source software. The UI, contained in this r
 
 ###Changelog
 
+3.0 Stable version:
+* Ready to work with Saiku 3
+
 2.4 Stable version:
 * Position legend - https://github.com/it4biz/SaikuChartPlus/issues/4
 * Error label description - https://github.com/it4biz/SaikuChartPlus/issues/11
