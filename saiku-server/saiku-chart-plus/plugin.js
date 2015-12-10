@@ -1278,11 +1278,11 @@ function loadJS(file){
 
 		loadCSS('js/saiku/plugins/saiku-chart-plus/css/plugin.css');	
 
-		loadJS('https://www.google.com/jsapi');
+		loadJS('//www.google.com/jsapi');
 		loadJS("js/saiku/plugins/saiku-chart-plus/js/google.js");
 		
 		loadJS('js/saiku/plugins/saiku-chart-plus/js/highcharts.js');
-		loadJS('http://code.highcharts.com/modules/exporting.js');
+		loadJS('//code.highcharts.com/modules/exporting.js');
 		
 		
         function new_workspace(args) {
