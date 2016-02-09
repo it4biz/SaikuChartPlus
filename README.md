@@ -30,6 +30,10 @@ Saiku Chart Plus is a free and open source software. The UI, contained in this r
 
 ###Changelog
 
+3.1RC1 (on development...)
+* Add Interactive Heatmaps with Google Maps API v3 (https://github.com/it4biz/SaikuChartPlus/issues/35);
+* Work in open issues;
+
 3.0 Stable version:
 * Ready to work with Saiku 3
 
